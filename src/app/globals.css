@@ -26,6 +26,19 @@ body {
 	transition: color 150ms ease;
 }
 
+/* KaTeX term transition base */
+[class^="term-"] {
+	transition: color 150ms ease;
+}
+
+/* Dot grid legend swatch */
+.dot-legend-swatch {
+	width: 12px;
+	height: 12px;
+	border-radius: 2px;
+	flex-shrink: 0;
+}
+
 /* Slider track touch behavior */
 [data-slider-track] {
 	touch-action: none;
