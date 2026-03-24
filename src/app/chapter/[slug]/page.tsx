@@ -27,6 +27,9 @@ const contentComponents: Record<string, React.ComponentType> = {
 	"the-evidence": dynamic(
 		() => import("@/components/chapter/content/TheEvidenceContent"),
 	),
+	"the-convergence": dynamic(
+		() => import("@/components/chapter/content/TheConvergenceContent"),
+	),
 };
 
 export function generateStaticParams() {
@@ -42,6 +45,11 @@ export async function generateMetadata({
 	return {
 		title: `${chapter.title} — Signal & Noise`,
 		description: chapter.hook,
+		openGraph: {
+			title: chapter.title,
+			description: chapter.hook,
+			images: [`/og/${chapter.slug}.png`],
+		},
 	};
 }
 

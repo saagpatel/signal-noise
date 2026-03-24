@@ -10,9 +10,10 @@ const LEGEND = [
 interface BeliefMeterProps {
 	model: ChapterModel;
 	className?: string;
+	compact?: boolean;
 }
 
-export function BeliefMeter({ model, className }: BeliefMeterProps) {
+export function BeliefMeter({ model, className, compact }: BeliefMeterProps) {
 	const priorFrac = model.derived.priorFrac as number;
 	const posterior = model.derived.posterior as number;
 	const logOddsPosterior = model.derived.logOddsPosterior as number;
@@ -27,7 +28,11 @@ export function BeliefMeter({ model, className }: BeliefMeterProps) {
 
 	return (
 		<div className={className}>
-			<div className="relative h-12 w-full overflow-hidden rounded-lg bg-zinc-900">
+			<div
+				className={`relative w-full overflow-hidden rounded-lg bg-zinc-900 ${compact ? "h-8" : "h-12"}`}
+				aria-label="Belief meter visualization"
+				role="img"
+			>
 				{/* Ghost bar — prior */}
 				<div
 					className="absolute inset-y-0 left-0 bg-blue-500/20"
@@ -44,37 +49,41 @@ export function BeliefMeter({ model, className }: BeliefMeterProps) {
 			</div>
 
 			{/* Labels */}
-			<div className="mt-3 flex items-baseline justify-between">
-				<div className="flex gap-6">
-					<span className="font-mono text-xs text-zinc-400">
-						Prior: {priorPct}%
-					</span>
-					<span className="font-mono text-xs text-white">
-						Posterior: {posteriorPct}%
-					</span>
-				</div>
-				<span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-					log-odds: {logOddsDisplay}
-				</span>
-			</div>
-
-			{/* Legend */}
-			<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-				{LEGEND.map((item) => (
-					<div key={item.key} className="flex items-center gap-1.5">
-						<div
-							className="dot-legend-swatch"
-							style={{
-								backgroundColor:
-									item.color === "dynamic" ? posteriorColor : item.color,
-							}}
-						/>
-						<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-							{item.label}
+			{!compact && (
+				<div className="mt-3 flex items-baseline justify-between">
+					<div className="flex gap-6">
+						<span className="font-mono text-xs text-zinc-400">
+							Prior: {priorPct}%
+						</span>
+						<span className="font-mono text-xs text-white">
+							Posterior: {posteriorPct}%
 						</span>
 					</div>
-				))}
-			</div>
+					<span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+						log-odds: {logOddsDisplay}
+					</span>
+				</div>
+			)}
+
+			{/* Legend */}
+			{!compact && (
+				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+					{LEGEND.map((item) => (
+						<div key={item.key} className="flex items-center gap-1.5">
+							<div
+								className="dot-legend-swatch"
+								style={{
+									backgroundColor:
+										item.color === "dynamic" ? posteriorColor : item.color,
+								}}
+							/>
+							<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+								{item.label}
+							</span>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

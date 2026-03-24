@@ -111,7 +111,7 @@ export function Slider({
 				aria-valuemin={min}
 				aria-valuemax={max}
 				data-slider-track
-				className="relative h-11 cursor-pointer select-none rounded-lg bg-zinc-800"
+				className="relative h-11 cursor-pointer select-none rounded-lg bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
 				onPointerDown={handlePointerDown}
 				onPointerMove={handlePointerMove}
 				onKeyDown={handleKeyDown}

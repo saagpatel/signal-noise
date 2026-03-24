@@ -39,6 +39,12 @@ const EvidenceTree = dynamic(
 	{ ssr: false },
 );
 
+const ConvergencePanel = dynamic(
+	() =>
+		import("@/components/viz/ConvergencePanel").then((m) => m.ConvergencePanel),
+	{ ssr: false },
+);
+
 const vizRenderers: Record<string, (model: ChapterModel) => React.ReactNode> = {
 	"the-test": (model) => <DotGrid model={model} />,
 	"the-signal": (model) => <WaterfallDisplay model={model} />,
@@ -48,6 +54,7 @@ const vizRenderers: Record<string, (model: ChapterModel) => React.ReactNode> = {
 	"the-update": (model) => <BeliefMeter model={model} />,
 	"the-market": (model) => <DistributionCurve model={model} mode="market" />,
 	"the-evidence": (model) => <EvidenceTree model={model} />,
+	"the-convergence": (model) => <ConvergencePanel model={model} />,
 };
 
 export function InteractiveWidget({ slug }: { slug: string }) {

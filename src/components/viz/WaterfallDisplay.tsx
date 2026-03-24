@@ -30,9 +30,14 @@ const LEGEND = [
 interface WaterfallDisplayProps {
 	model: ChapterModel;
 	className?: string;
+	compact?: boolean;
 }
 
-export function WaterfallDisplay({ model, className }: WaterfallDisplayProps) {
+export function WaterfallDisplay({
+	model,
+	className,
+	compact,
+}: WaterfallDisplayProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const waterfallDataRef = useRef<number[][] | null>(null);
@@ -132,22 +137,26 @@ export function WaterfallDisplay({ model, className }: WaterfallDisplayProps) {
 			<div
 				ref={containerRef}
 				className="aspect-[2/1] w-full overflow-hidden rounded-lg bg-zinc-900"
+				aria-label="Waterfall display visualization"
+				role="img"
 			>
 				<canvas ref={canvasRef} className="h-full w-full" />
 			</div>
-			<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-				{LEGEND.map((item) => (
-					<div key={item.key} className="flex items-center gap-1.5">
-						<div
-							className="dot-legend-swatch"
-							style={{ backgroundColor: item.color }}
-						/>
-						<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-							{item.label}
-						</span>
-					</div>
-				))}
-			</div>
+			{!compact && (
+				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+					{LEGEND.map((item) => (
+						<div key={item.key} className="flex items-center gap-1.5">
+							<div
+								className="dot-legend-swatch"
+								style={{ backgroundColor: item.color }}
+							/>
+							<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+								{item.label}
+							</span>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

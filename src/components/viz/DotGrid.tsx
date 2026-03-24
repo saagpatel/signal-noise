@@ -27,9 +27,10 @@ const LEGEND = [
 interface DotGridProps {
 	model: ChapterModel;
 	className?: string;
+	compact?: boolean;
 }
 
-export function DotGrid({ model, className }: DotGridProps) {
+export function DotGrid({ model, className, compact }: DotGridProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const positionsRef = useRef<Float32Array | null>(null);
@@ -52,8 +53,14 @@ export function DotGrid({ model, className }: DotGridProps) {
 		dprRef.current = dpr;
 	}, [dpr]);
 
-	// Detect mobile on mount
+	// Detect mobile on mount (compact mode always uses reduced dot count)
 	useEffect(() => {
+		if (compact) {
+			dotCountRef.current = 2_500;
+			dirtyRef.current = true;
+			return;
+		}
+
 		const mq = window.matchMedia("(max-width: 640px)");
 		dotCountRef.current = mq.matches ? 2_500 : 10_000;
 
@@ -63,7 +70,7 @@ export function DotGrid({ model, className }: DotGridProps) {
 		};
 		mq.addEventListener("change", handler);
 		return () => mq.removeEventListener("change", handler);
-	}, []);
+	}, [compact]);
 
 	// Recompute positions on resize
 	useEffect(() => {
@@ -157,22 +164,26 @@ export function DotGrid({ model, className }: DotGridProps) {
 			<div
 				ref={containerRef}
 				className="aspect-square w-full overflow-hidden rounded-lg bg-zinc-900"
+				aria-label="Dot grid visualization"
+				role="img"
 			>
 				<canvas ref={canvasRef} className="h-full w-full" />
 			</div>
-			<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-				{LEGEND.map((item) => (
-					<div key={item.key} className="flex items-center gap-1.5">
-						<div
-							className="dot-legend-swatch"
-							style={{ backgroundColor: item.color }}
-						/>
-						<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-							{item.label}
-						</span>
-					</div>
-				))}
-			</div>
+			{!compact && (
+				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+					{LEGEND.map((item) => (
+						<div key={item.key} className="flex items-center gap-1.5">
+							<div
+								className="dot-legend-swatch"
+								style={{ backgroundColor: item.color }}
+							/>
+							<span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+								{item.label}
+							</span>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

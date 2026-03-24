@@ -65,20 +65,24 @@ const MODE_CONFIGS: Record<DistributionMode, ModeConfig> = {
 	},
 };
 
-const MARGIN = { top: 24, right: 20, bottom: 44, left: 16 };
 const POINT_COUNT = 200;
 
 interface DistributionCurveProps {
 	model: ChapterModel;
 	mode: DistributionMode;
 	className?: string;
+	compact?: boolean;
 }
 
 export function DistributionCurve({
 	model,
 	mode,
 	className,
+	compact,
 }: DistributionCurveProps) {
+	const margin = compact
+		? { top: 8, right: 4, bottom: 8, left: 4 }
+		: { top: 24, right: 20, bottom: 44, left: 16 };
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { width, height } = useCanvasSize(containerRef);
 
@@ -89,8 +93,8 @@ export function DistributionCurve({
 	const winProb = modeConfig.getWinProb(model);
 	const [xMin, xMax] = modeConfig.xDomain;
 
-	const innerW = width - MARGIN.left - MARGIN.right;
-	const innerH = height - MARGIN.top - MARGIN.bottom;
+	const innerW = width - margin.left - margin.right;
+	const innerH = height - margin.top - margin.bottom;
 
 	// Generate curve points
 	const curvePoints: [number, number][] = useMemo(() => {
@@ -175,8 +179,14 @@ export function DistributionCurve({
 	return (
 		<div className={className}>
 			<div ref={containerRef} className="aspect-[3/2] w-full">
-				<svg width={width} height={height} className="overflow-visible">
-					<g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
+				<svg
+					width={width}
+					height={height}
+					className="overflow-visible"
+					aria-label="Distribution curve visualization"
+					role="img"
+				>
+					<g transform={`translate(${margin.left},${margin.top})`}>
 						{/* Overlay curves (behind main) */}
 						{overlayCurves.map((curve, i) => (
 							<path
@@ -214,19 +224,21 @@ export function DistributionCurve({
 						/>
 
 						{/* Threshold label */}
-						<text
-							x={thresholdX}
-							y={-8}
-							textAnchor="middle"
-							fill="#71717a"
-							fontSize={11}
-							fontFamily="var(--font-jetbrains), monospace"
-						>
-							{modeConfig.thresholdLabel}
-						</text>
+						{!compact && (
+							<text
+								x={thresholdX}
+								y={-8}
+								textAnchor="middle"
+								fill="#71717a"
+								fontSize={11}
+								fontFamily="var(--font-jetbrains), monospace"
+							>
+								{modeConfig.thresholdLabel}
+							</text>
+						)}
 
 						{/* Win probability text */}
-						{winProb > 0 && (
+						{!compact && winProb > 0 && (
 							<text
 								x={Math.min(innerW - 10, thresholdX + 12)}
 								y={16}
@@ -289,30 +301,34 @@ export function DistributionCurve({
 									stroke="#71717a"
 									strokeWidth={1}
 								/>
-								<text
-									x={xScale(tick)}
-									y={innerH + 18}
-									textAnchor="middle"
-									fill="#71717a"
-									fontSize={10}
-									fontFamily="var(--font-jetbrains), monospace"
-								>
-									{tick}%
-								</text>
+								{!compact && (
+									<text
+										x={xScale(tick)}
+										y={innerH + 18}
+										textAnchor="middle"
+										fill="#71717a"
+										fontSize={10}
+										fontFamily="var(--font-jetbrains), monospace"
+									>
+										{tick}%
+									</text>
+								)}
 							</g>
 						))}
 
 						{/* X axis label */}
-						<text
-							x={innerW / 2}
-							y={innerH + 36}
-							textAnchor="middle"
-							fill="#71717a"
-							fontSize={11}
-							fontFamily="var(--font-jetbrains), monospace"
-						>
-							{modeConfig.xAxisLabel}
-						</text>
+						{!compact && (
+							<text
+								x={innerW / 2}
+								y={innerH + 36}
+								textAnchor="middle"
+								fill="#71717a"
+								fontSize={11}
+								fontFamily="var(--font-jetbrains), monospace"
+							>
+								{modeConfig.xAxisLabel}
+							</text>
+						)}
 					</g>
 				</svg>
 			</div>
