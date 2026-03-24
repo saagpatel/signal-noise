@@ -29,12 +29,25 @@ const DistributionCurve = dynamic(
 	{ ssr: false },
 );
 
+const BeliefMeter = dynamic(
+	() => import("@/components/viz/BeliefMeter").then((m) => m.BeliefMeter),
+	{ ssr: false },
+);
+
+const EvidenceTree = dynamic(
+	() => import("@/components/viz/EvidenceTree").then((m) => m.EvidenceTree),
+	{ ssr: false },
+);
+
 const vizRenderers: Record<string, (model: ChapterModel) => React.ReactNode> = {
 	"the-test": (model) => <DotGrid model={model} />,
 	"the-signal": (model) => <WaterfallDisplay model={model} />,
 	"the-forecast": (model) => (
 		<DistributionCurve model={model} mode="election" />
 	),
+	"the-update": (model) => <BeliefMeter model={model} />,
+	"the-market": (model) => <DistributionCurve model={model} mode="market" />,
+	"the-evidence": (model) => <EvidenceTree model={model} />,
 };
 
 export function InteractiveWidget({ slug }: { slug: string }) {

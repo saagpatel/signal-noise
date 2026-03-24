@@ -19,6 +19,8 @@ interface ModeConfig {
 	getStd: (model: ChapterModel) => number;
 	getWinProb: (model: ChapterModel) => number;
 	getOverlayData?: (model: ChapterModel) => { std: number; opacity: number }[];
+	getObservationX?: (model: ChapterModel) => number | null;
+	observationLabel?: string;
 	xTicks: number[];
 }
 
@@ -57,6 +59,8 @@ const MODE_CONFIGS: Record<DistributionMode, ModeConfig> = {
 		getMean: () => 0,
 		getStd: (m) => m.derived.dailyStd ?? 1,
 		getWinProb: () => 0,
+		getObservationX: (m) => m.params.dailyMove ?? null,
+		observationLabel: "Today's move",
 		xTicks: [-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10],
 	},
 };
@@ -164,6 +168,9 @@ export function DistributionCurve({
 	}
 
 	const thresholdX = xScale(modeConfig.thresholdValue);
+	const observationValue = modeConfig.getObservationX?.(model) ?? null;
+	const observationX =
+		observationValue !== null ? xScale(observationValue) : null;
 
 	return (
 		<div className={className}>
@@ -231,6 +238,34 @@ export function DistributionCurve({
 							>
 								{modeConfig.winLabel(winProb)}
 							</text>
+						)}
+
+						{/* Observation line (e.g. today's market move) */}
+						{observationX !== null && (
+							<>
+								<line
+									x1={observationX}
+									y1={0}
+									x2={observationX}
+									y2={innerH}
+									stroke="#22c55e"
+									strokeWidth={2}
+								/>
+								{modeConfig.observationLabel && (
+									<text
+										x={observationX}
+										y={-8}
+										textAnchor={observationX > innerW / 2 ? "end" : "start"}
+										dx={observationX > innerW / 2 ? -6 : 6}
+										fill="#22c55e"
+										fontSize={11}
+										fontFamily="var(--font-jetbrains), monospace"
+										fontWeight={700}
+									>
+										{modeConfig.observationLabel}
+									</text>
+								)}
+							</>
 						)}
 
 						{/* X axis line */}

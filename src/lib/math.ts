@@ -73,6 +73,22 @@ export function effectiveMarginOfError(moe: number, pollCount: number): number {
 	return moe / Math.sqrt(Math.max(1, pollCount));
 }
 
+/** Convert probability (0-1) to log-odds */
+export function toLogOdds(p: number): number {
+	const clamped = Math.max(1e-10, Math.min(1 - 1e-10, p));
+	return Math.log(clamped / (1 - clamped));
+}
+
+/** Convert log-odds back to probability (0-1) */
+export function fromLogOdds(lo: number): number {
+	return 1 / (1 + Math.exp(-lo));
+}
+
+/** Two-tailed p-value from z-score */
+export function pValueTwoTailed(z: number): number {
+	return 2 * (1 - normalCDF(Math.abs(z), 0, 1));
+}
+
 // Inline assertions for known values (run at import time in dev)
 console.assert(
 	Math.abs(ppv(0.01, 0.95, 0.95) - 0.161) < 0.001,
@@ -93,4 +109,13 @@ console.assert(
 console.assert(
 	Math.abs(effectiveMarginOfError(3.0, 9) - 1.0) < 0.001,
 	"effectiveMarginOfError(3.0, 9) should = 1.0",
+);
+console.assert(Math.abs(toLogOdds(0.5)) < 0.001, "toLogOdds(0.5) should = 0");
+console.assert(
+	Math.abs(fromLogOdds(0) - 0.5) < 0.001,
+	"fromLogOdds(0) should = 0.5",
+);
+console.assert(
+	Math.abs(pValueTwoTailed(1.96) - 0.05) < 0.01,
+	"pValueTwoTailed(1.96) should ≈ 0.05",
 );

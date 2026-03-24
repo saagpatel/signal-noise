@@ -5,10 +5,13 @@ import {
 	dPrime,
 	effectiveMarginOfError,
 	falseAlarmRate,
+	fromLogOdds,
 	normalCDF,
 	normalPDF,
 	ppv,
+	pValueTwoTailed,
 	snr,
+	toLogOdds,
 } from "./math";
 
 describe("bayesUpdate", () => {
@@ -143,5 +146,69 @@ describe("effectiveMarginOfError", () => {
 
 	it("guards against 0 polls", () => {
 		expect(effectiveMarginOfError(3, 0)).toBe(3);
+	});
+});
+
+describe("toLogOdds", () => {
+	it("returns 0 for 50% probability", () => {
+		expect(toLogOdds(0.5)).toBeCloseTo(0, 5);
+	});
+
+	it("returns positive for p > 0.5", () => {
+		expect(toLogOdds(0.75)).toBeGreaterThan(0);
+	});
+
+	it("returns negative for p < 0.5", () => {
+		expect(toLogOdds(0.25)).toBeLessThan(0);
+	});
+
+	it("clamps near-zero probabilities", () => {
+		expect(Number.isFinite(toLogOdds(0))).toBe(true);
+	});
+
+	it("clamps near-one probabilities", () => {
+		expect(Number.isFinite(toLogOdds(1))).toBe(true);
+	});
+});
+
+describe("fromLogOdds", () => {
+	it("returns 0.5 for log-odds 0", () => {
+		expect(fromLogOdds(0)).toBeCloseTo(0.5, 5);
+	});
+
+	it("returns > 0.5 for positive log-odds", () => {
+		expect(fromLogOdds(1)).toBeGreaterThan(0.5);
+	});
+
+	it("round-trips with toLogOdds", () => {
+		expect(fromLogOdds(toLogOdds(0.75))).toBeCloseTo(0.75, 5);
+		expect(fromLogOdds(toLogOdds(0.1))).toBeCloseTo(0.1, 5);
+		expect(fromLogOdds(toLogOdds(0.99))).toBeCloseTo(0.99, 3);
+	});
+
+	it("approaches 1 for large positive log-odds", () => {
+		expect(fromLogOdds(10)).toBeGreaterThan(0.999);
+	});
+
+	it("approaches 0 for large negative log-odds", () => {
+		expect(fromLogOdds(-10)).toBeLessThan(0.001);
+	});
+});
+
+describe("pValueTwoTailed", () => {
+	it("returns ~0.05 for z=1.96", () => {
+		expect(pValueTwoTailed(1.96)).toBeCloseTo(0.05, 2);
+	});
+
+	it("returns ~1.0 for z=0", () => {
+		expect(pValueTwoTailed(0)).toBeCloseTo(1.0, 2);
+	});
+
+	it("is symmetric (same for +z and -z)", () => {
+		expect(pValueTwoTailed(2)).toBeCloseTo(pValueTwoTailed(-2), 10);
+	});
+
+	it("decreases as |z| increases", () => {
+		expect(pValueTwoTailed(3)).toBeLessThan(pValueTwoTailed(2));
 	});
 });
