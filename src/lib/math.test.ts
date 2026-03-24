@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
 	bayesUpdate,
 	detectionProbability,
+	dPrime,
+	effectiveMarginOfError,
 	falseAlarmRate,
 	normalCDF,
 	normalPDF,
@@ -107,5 +109,39 @@ describe("detectionProbability", () => {
 
 	it("returns ~0.5 when threshold equals signal strength", () => {
 		expect(detectionProbability(2, 2, 1)).toBeCloseTo(0.5, 2);
+	});
+});
+
+describe("dPrime", () => {
+	it("returns signal/noise ratio", () => {
+		expect(dPrime(2, 1)).toBe(2);
+	});
+
+	it("returns 1 when signal equals noise", () => {
+		expect(dPrime(1.5, 1.5)).toBeCloseTo(1, 5);
+	});
+
+	it("returns 0 when signal is 0", () => {
+		expect(dPrime(0, 1)).toBe(0);
+	});
+});
+
+describe("effectiveMarginOfError", () => {
+	it("returns moe/sqrt(n)", () => {
+		expect(effectiveMarginOfError(3, 9)).toBeCloseTo(1, 5);
+	});
+
+	it("returns moe unchanged for 1 poll", () => {
+		expect(effectiveMarginOfError(3, 1)).toBe(3);
+	});
+
+	it("decreases as poll count increases", () => {
+		const few = effectiveMarginOfError(3, 5);
+		const many = effectiveMarginOfError(3, 50);
+		expect(many).toBeLessThan(few);
+	});
+
+	it("guards against 0 polls", () => {
+		expect(effectiveMarginOfError(3, 0)).toBe(3);
 	});
 });

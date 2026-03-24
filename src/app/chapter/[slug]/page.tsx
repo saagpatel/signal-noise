@@ -12,6 +12,12 @@ const contentComponents: Record<string, React.ComponentType> = {
 	"the-test": dynamic(
 		() => import("@/components/chapter/content/TheTestContent"),
 	),
+	"the-signal": dynamic(
+		() => import("@/components/chapter/content/TheSignalContent"),
+	),
+	"the-forecast": dynamic(
+		() => import("@/components/chapter/content/TheForecastContent"),
+	),
 };
 
 export function generateStaticParams() {

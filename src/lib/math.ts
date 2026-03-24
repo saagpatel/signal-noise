@@ -63,6 +63,16 @@ export function detectionProbability(
 	return 1 - normalCDF(threshold, signalStrength, noiseStd);
 }
 
+/** d' (d-prime) — signal detection theory sensitivity index */
+export function dPrime(signalStrength: number, noiseStd: number): number {
+	return signalStrength / noiseStd;
+}
+
+/** Effective margin of error after aggregating N independent polls */
+export function effectiveMarginOfError(moe: number, pollCount: number): number {
+	return moe / Math.sqrt(Math.max(1, pollCount));
+}
+
 // Inline assertions for known values (run at import time in dev)
 console.assert(
 	Math.abs(ppv(0.01, 0.95, 0.95) - 0.161) < 0.001,
@@ -75,4 +85,12 @@ console.assert(
 console.assert(
 	Math.abs(normalCDF(1.96, 0, 1) - 0.975) < 0.001,
 	"normalCDF(1.96, 0, 1) should ≈ 0.975",
+);
+console.assert(
+	Math.abs(dPrime(1.0, 1.0) - 1.0) < 0.001,
+	"dPrime(1.0, 1.0) should = 1.0",
+);
+console.assert(
+	Math.abs(effectiveMarginOfError(3.0, 9) - 1.0) < 0.001,
+	"effectiveMarginOfError(3.0, 9) should = 1.0",
 );
