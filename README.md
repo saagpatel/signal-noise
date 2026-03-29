@@ -1,68 +1,55 @@
 # Signal & Noise
 
-An interactive essay teaching Bayesian reasoning and probabilistic thinking through direct manipulation of live visualizations. Seven chapters, second-person narrative, no login or download required.
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript)](#) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
 
-## Chapters
+> Drag a slider. Update your prior. Watch Bayes' theorem stop being abstract.
 
-| #   | Title           | Concept                                                     |
-| --- | --------------- | ----------------------------------------------------------- |
-| 1   | The Test        | Medical diagnostics and base rate neglect                   |
-| 2   | The Signal      | Radio telescope detection and false alarm tradeoffs         |
-| 3   | The Forecast    | Election modeling, polling aggregation, and systematic bias |
-| 4   | The Update      | Bayesian belief revision and log-odds                       |
-| 5   | The Market      | Financial noise, z-scores, and p-values                     |
-| 6   | The Evidence    | Courtroom reasoning and correlated witnesses                |
-| 7   | The Convergence | One slider, four models, same equation                      |
+Signal & Noise is an interactive essay teaching Bayesian reasoning and probabilistic thinking through seven chapters of live, manipulable visualizations. Second-person narrative. No login. No download. Every concept is something you feel before you calculate.
+
+## Features
+
+- **Seven chapters** — medical diagnostics, radio telescope detection, election modeling, Bayesian belief revision, financial noise, courtroom reasoning, and model convergence
+- **Direct manipulation** — every visualization is a live control; drag priors, adjust thresholds, watch posterior distributions update in real time
+- **KaTeX equations** — inline math renders client-side without a build step
+- **Scroll animations** — Framer Motion reveal animations guide pacing through the narrative
+- **Static export** — fully pre-renderable; no server required after `npm run build`
+
+## Quick Start
+
+### Prerequisites
+- Node.js 18+
+
+### Installation
+```bash
+npm install
+```
+
+### Usage
+```bash
+# Development
+npm run dev
+
+# Static export
+npm run build && npm run start
+
+# Type-check
+npm run typecheck
+```
 
 ## Tech Stack
 
-- **Next.js 14** — App Router, static export (`output: 'export'`)
-- **React 18** — Hooks only
-- **TypeScript 5** — Strict mode
-- **D3 v7** — Math and scales only (React owns the DOM)
-- **KaTeX 0.16** — Client-side equation rendering
-- **Framer Motion 11** — Scroll reveal animations
-- **Tailwind CSS 3** — All styling
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 14 (static export) |
+| Language | TypeScript 5, strict mode |
+| Visualization | D3 v7 (math/scales; React owns DOM) |
+| Math | KaTeX 0.16 |
+| Animation | Framer Motion 11 |
+| Styling | Tailwind CSS 3 |
 
-## Run Locally
+## Architecture
 
-```bash
-git clone <repo-url>
-cd signal-noise
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## Project Structure
-
-```
-src/
-├── chapters/          # One config per chapter (sliders, compute, equation)
-├── components/
-│   ├── chapter/       # ChapterShell, InteractiveWidget, prose content
-│   ├── viz/           # DotGrid, WaterfallDisplay, DistributionCurve, etc.
-│   ├── landing/       # Hero, ChapterPicker
-│   └── ui/            # Slider, Toggle
-├── hooks/             # useChapterModel, useCanvasSize, useD3
-├── lib/               # Pure math functions, utilities
-└── types/             # ChapterModel, ChapterConfig interfaces
-```
-
-## How It Works
-
-Each chapter exports a `ChapterConfig` with a `compute()` function that maps slider parameters to derived values, and an `annotation()` function that generates live text. The `InteractiveWidget` orchestrates sliders, visualization, annotation, and equation overlay. Visualizations use Canvas (DotGrid, WaterfallDisplay) or SVG with D3 path generators (DistributionCurve, EvidenceTree).
-
-## Contributing
-
-PRs welcome. Before submitting:
-
-```bash
-npm run typecheck   # tsc --noEmit
-npm test            # vitest run
-npm run build       # next build (static export)
-```
+Each chapter is a React Server Component with client islands for interactive visualizations. D3 handles only scales and mathematical transforms — React owns the SVG DOM, preventing the classic D3/React DOM conflict. All seven chapters are statically exported at build time, making the essay hostable on any CDN with zero runtime infrastructure.
 
 ## License
 
