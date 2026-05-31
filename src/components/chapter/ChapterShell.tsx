@@ -1,11 +1,6 @@
-import dynamic from "next/dynamic";
 import type { ChapterConfig } from "@/types/chapter";
 import { ChapterNav } from "./ChapterNav";
-
-const InteractiveWidget = dynamic(
-	() => import("./InteractiveWidget").then((m) => m.InteractiveWidget),
-	{ ssr: false },
-);
+import { InteractiveWidgetLoader } from "./InteractiveWidgetLoader";
 
 interface ChapterShellProps {
 	chapter: ChapterConfig;
@@ -33,7 +28,7 @@ export function ChapterShell({ chapter, children }: ChapterShellProps) {
 				<div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_420px] lg:gap-16 lg:items-start">
 					<div className="order-2 lg:order-1">{children}</div>
 					<div className="order-1 lg:order-2 lg:sticky lg:top-8">
-						<InteractiveWidget slug={chapter.slug} />
+						<InteractiveWidgetLoader slug={chapter.slug} />
 					</div>
 				</div>
 			) : (
