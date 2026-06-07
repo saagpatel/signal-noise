@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Signal and Noise">
+  <rect width="64" height="64" rx="13" fill="#0b0b0f"/>
+  <g fill="#3a3f4b">
+    <circle cx="12" cy="42" r="1.5"/><circle cx="21" cy="20" r="1.5"/><circle cx="43" cy="47" r="1.5"/>
+    <circle cx="52" cy="19" r="1.5"/><circle cx="30" cy="51" r="1.5"/><circle cx="38" cy="15" r="1.5"/>
+  </g>
+  <path d="M7 36 Q16 13 25 33 T43 27 Q50 24 57 31" fill="none" stroke="#f5d35a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
