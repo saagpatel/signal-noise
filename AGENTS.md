@@ -45,11 +45,11 @@ Signal & Noise is a static interactive essay teaching Bayesian reasoning through
 
 - Use `.codex/verify.commands` as the canonical verifier for routine Codex work.
 - Current canonical verifier:
-  - `npm ci`
-  - `npm test`
-  - `npm run typecheck`
-  - `npm run build`
-- Current caveat: `npm test` runs unit tests only; Playwright smoke specs live under `e2e/` and should be run with Playwright when browser behavior changes.
+  - `pnpm install --frozen-lockfile`
+  - `pnpm test`
+  - `pnpm run typecheck`
+  - `pnpm run build`
+- Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/` and should be run with Playwright when browser behavior changes.
 - Current caveat: `next build` passes but emits existing `metadataBase` warnings for social image URL resolution.
 - Add browser or Playwright checks for interactive essay behavior changes.
 
