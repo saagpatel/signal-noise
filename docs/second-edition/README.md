@@ -14,5 +14,7 @@ ready. Obvious labeling and overclaim errors are corrected on this branch.
 - `CLAIM-LEDGER.md` — claim-level evidence and current disposition.
 - `MODEL-SPEC.md` — equations, assumptions, reference values, and limitations.
 - `REVIEW-PACKET.md` — bounded independent-review request.
+- `REVIEW-HANDOFF.md` — copy-paste-ready independent-review instructions and
+  required response shape.
 
 G1 cannot receive GO while the approval record in `REVIEW-PACKET.md` is empty.
