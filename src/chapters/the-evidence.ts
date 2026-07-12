@@ -30,13 +30,14 @@ const config: ChapterConfig = {
 		},
 		{
 			id: "evidenceIndependence",
-			label: "Independence",
+			label: "Second-witness weight",
 			min: 0,
 			max: 100,
 			step: 10,
 			defaultValue: 100,
 			unit: "%",
-			description: "How independent the second witness is from the first",
+			description:
+				"Illustrative fraction of a second witness's likelihood-ratio weight",
 		},
 	],
 	equationLatex: String.raw`P(\text{guilt}) = \sigma\!\left(\log\frac{\htmlClass{term-priorGuilt}{p}}{1-p} + \log\htmlClass{term-evidenceReliability}{LR_1} + \htmlClass{term-evidenceIndependence}{\rho}\log\htmlClass{term-evidenceReliability}{LR_1}\right)`,
@@ -48,13 +49,13 @@ const config: ChapterConfig = {
 	compute: (params: Record<string, number>): ChapterModel => {
 		const priorFrac = params.priorGuilt / 100;
 		const reliability = params.evidenceReliability / 100;
-		const independence = params.evidenceIndependence / 100;
+		const secondWitnessWeight = params.evidenceIndependence / 100;
 
 		// Likelihood ratio from one witness
 		const lr1 = reliability / (1 - reliability);
 
-		// Second witness penalized by correlation
-		const lr2 = lr1 ** independence;
+		// Sensitivity analysis only, not a general dependence estimator.
+		const lr2 = lr1 ** secondWitnessWeight;
 
 		const posteriorAfterFirst = fromLogOdds(
 			toLogOdds(priorFrac) + Math.log(lr1),
@@ -81,9 +82,9 @@ const config: ChapterConfig = {
 		const prior = (d.priorFrac * 100).toFixed(0);
 		const afterFirst = (d.posteriorAfterFirst * 100).toFixed(1);
 		const posteriorPct = (d.posteriorGuilt * 100).toFixed(1);
-		const independence = model.params.evidenceIndependence.toFixed(0);
+		const weight = model.params.evidenceIndependence.toFixed(0);
 		const effLR = d.effectiveLR.toFixed(1);
-		return `Prior: **${prior}%**. After witness 1: **${afterFirst}%**. After witness 2 (**${independence}%** independent): **${posteriorPct}%**. Effective evidence multiplier: **${effLR}\u00d7**.`;
+		return `Prior: **${prior}%**. After witness 1: **${afterFirst}%**. With **${weight}%** of the second witness's nominal weight: **${posteriorPct}%**. Illustrative evidence multiplier: **${effLR}\u00d7**.`;
 	},
 };
 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
 
 const newsreader = Newsreader({
 	subsets: ["latin"],
@@ -48,10 +47,7 @@ export default function RootLayout({
 			lang="en"
 			className={`${newsreader.variable} ${jetbrainsMono.variable}`}
 		>
-			<body>
-				{children}
-				<Analytics />
-			</body>
+			<body>{children}</body>
 		</html>
 	);
 }

@@ -1,5 +1,10 @@
 # Signal & Noise — Implementation Roadmap
 
+> Historical v1 roadmap. The second-edition artifacts under
+> `docs/second-edition/` supersede this file for new scope decisions. Historical
+> convergence claims, dependency versions, and analytics notes below are not
+> current requirements.
+
 ## 1. Exec Summary
 
 ### What We're Building

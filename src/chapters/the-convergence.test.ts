@@ -76,6 +76,7 @@ describe("the-convergence config", () => {
 			expect(text).toContain("Threshold");
 			expect(text).toContain("Poll avg");
 			expect(text).toContain("Prior");
+			expect(text).toContain("not a shared quantity");
 		});
 	});
 });

@@ -34,9 +34,10 @@ export default function TheMarketContent() {
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Now drag it back down to 10%. The curve tightens. The same 3% move is
-					now nearly five standard deviations from zero &mdash; an event so rare
-					that noise almost certainly didn&apos;t cause it. Same move, different
-					context, completely different conclusion.
+					now nearly five standard deviations from zero under this normal,
+					zero-mean model. That makes it unusual under the model; it does not
+					prove a cause. Same move, different assumed noise, different
+					conclusion.
 				</p>
 			</NarrativeBlock>
 
@@ -46,10 +47,11 @@ export default function TheMarketContent() {
 					The Noise Band
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
-					The shaded region shows where most daily moves fall by pure chance. At
-					20% annual volatility, a typical day moves about 1.3% &mdash;
-					that&apos;s the daily standard deviation, derived by dividing the
-					annual figure by the square root of 252 trading days.
+					The shaded region shows where most daily moves fall under the
+					chapter&apos;s normal-return approximation. At 20% annual volatility,
+					a typical day moves about 1.3% &mdash; that&apos;s the daily standard
+					deviation, derived by dividing the annual figure by the square root of
+					252 trading days.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Drag the <strong className="text-white">Trading Days</strong> slider
@@ -68,9 +70,10 @@ export default function TheMarketContent() {
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Toggle the equation overlay above. The z-score tells you how many
-					standard deviations today&apos;s move sits from zero. The p-value
-					tells you how often noise alone would produce a move this extreme or
-					more &mdash; in either direction.
+					standard deviations today&apos;s move sits from zero. The p-value is
+					the probability, assuming this model, of a move at least as extreme in
+					either direction. It is not the probability that noise caused the move
+					or that a trading story is true.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Drag each slider and watch its term light up. The daily move is in the

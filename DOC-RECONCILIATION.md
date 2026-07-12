@@ -52,14 +52,13 @@ See "Contradictions for Manual Review."
 **Status:** `consistent`
 **Evidence:** `verified-by-reading-code`
 
-`package.json` confirms: `next@^14.2.0`, `react@^18.3.0`, `typescript@^5.5.0`, `d3@^7.9.0`,
+`package.json` confirms: `next@^15.5.0`, `react@^18.3.0`, `typescript@^6.0.0-dev`, `d3@^7.9.0`,
 `katex@^0.16.0`, `framer-motion@^11.0.0`, `tailwindcss@^3.4.0`.
 
 `next.config.mjs:3` confirms `output: "export"` (full static site).
 
-`@vercel/analytics@^2.0.1` is in `package.json` dependencies and is imported and rendered in
-`src/app/layout.tsx:1,36`. Docs reflect this: CLAUDE.md Gotchas and AGENTS.md Core Rules
-both correctly describe the analytics posture as of 2026-05-11.
+No analytics or telemetry package is mounted. The second-edition privacy posture is no
+tracking unless a later, explicit scope decision changes it.
 
 `src/components/viz/DotGrid.tsx` uses `HTMLCanvasElement` with `canvas.getContext("2d")` —
 consistent with the documented "Canvas (not SVG) for the dot grid" gotcha.
@@ -91,10 +90,8 @@ No changes made.
 
 All previously drifted items in editable files were fixed in the prior reconciliation pass
 (`63c97ab`) and subsequent lean commit (`07c06ae`):
-- CLAUDE.md now has a "Gotchas" section (replacing the old "Do NOT" list) with the correct
-  analytics posture: `@vercel/analytics` active, Sentry not enabled.
-- AGENTS.md Core Rules correctly restricts tracking to "beyond the @vercel/analytics
-  integration already in layout.tsx."
+- CLAUDE.md now records the second-edition no-tracking posture.
+- AGENTS.md Core Rules prohibit tracking unless explicitly requested.
 - README Quick Start no longer mentions `npm run start` (incompatible with static export mode).
 
 No new contradictions found in editable doc files. No changes made.
@@ -117,11 +114,6 @@ Left unchanged.
 The following are in files outside the editable set (`IMPLEMENTATION-ROADMAP.md`,
 `CHANGELOG.md`, `docs/PORTFOLIO-DISPOSITION.md`). No edits were made; human action required.
 
-### `IMPLEMENTATION-ROADMAP.md` — Analytics hard constraints (Section 2, line ~57 and Section 5, line ~560)
-**What it says:** "No analytics (v1)" in Review Gate Hard Constraints; "No tracking, no analytics (v1)" in the Security section; Analytics row in Locked Decisions table: "None (v1) | Simplicity; add Vercel Analytics in v2 with one line."
-**What the code shows:** `@vercel/analytics` is installed (`package.json:15`) and active (`src/app/layout.tsx:1,36`). Portfolio-wide analytics policy was applied 2026-05-11, superseding the v1 constraint.
-**One-line fix:** Strike through all three occurrences and append: `~~No analytics (v1)~~ — superseded 2026-05-11; @vercel/analytics active.`
-
 ### `IMPLEMENTATION-ROADMAP.md` — Testing strategy (Section 6, line ~573)
 **What it says:** "Write `src/lib/math.test.ts` using Node's built-in `assert` module … Run with `node --experimental-strip-types src/lib/math.test.ts` in CI."
 **What the code shows:** `src/lib/math.test.ts:1` uses Vitest (`import { describe, expect, it } from "vitest"`). The `package.json` test script is `vitest run`. The Node-assert approach was never implemented.
@@ -134,8 +126,8 @@ The following are in files outside the editable set (`IMPLEMENTATION-ROADMAP.md`
 
 ### `docs/PORTFOLIO-DISPOSITION.md` — Stale tip sha
 **What it says:** "Tip: `75c0ea8` feat: add Playwright E2E smoke tests" and "Last known reference → `origin/main` tip: `75c0ea8`."
-**What git shows:** Current HEAD is `07c06aef1994ac815b3d75dc6ab061fc6d71a4c1` (7 commits ahead, all documentation and analytics). The document predates the analytics integration and subsequent CLAUDE.md reconciliation passes.
-**One-line fix:** Update tip sha and add a note that commits `c599548`–`07c06ae` added analytics integration and doc reconciliation passes.
+**Current interpretation:** This section records a historical snapshot. Use live git state and
+the second-edition review packet instead of the embedded SHA or its analytics-era conclusion.
 
 ### Missing OG images (chapter page metadata — persistent)
 **What docs say:** CLAUDE.md Architecture — "OG images: static PNGs in `/public/og/`"; IMPLEMENTATION-ROADMAP Phase 4 task — create 1200×630 PNGs per chapter.

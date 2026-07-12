@@ -6,9 +6,9 @@ Interactive essay teaching Bayesian reasoning through direct manipulation of liv
 
 ## Stack
 
-- Next.js 14 — App Router, `output: 'export'` (full static site)
+- Next.js 15 — App Router, `output: 'export'` (full static site)
 - React 18 — hooks only, no class components
-- TypeScript 5 — strict mode, zero `any` types
+- TypeScript 6 prerelease — strict mode, zero `any` types
 - D3 v7 — math/scales only; React owns the DOM
 - KaTeX 0.16 — equation rendering, client-side only via `dynamic` import
 - Framer Motion 11 — scroll reveal, transitions
@@ -47,11 +47,12 @@ See IMPLEMENTATION-ROADMAP.md for architecture details.
 - **Static-only** — no `localStorage`, `sessionStorage`, `output: 'standalone'`, or server functions; full static export only
 - **KaTeX SSR** — always import via `dynamic(() => import('./EquationOverlay'), { ssr: false })`; server-side rendering will break
 - **Chapter interfaces** — changing `src/types/chapter.ts` requires updating all 7 chapter configs; do both in the same commit
-- **Analytics** — `@vercel/analytics` is active (added 2026-05-11), privacy-respecting, no PII; Sentry is NOT enabled here (Premise only)
+- **Analytics** — the second-edition branch removes analytics. Do not add tracking or telemetry without explicit approval and an accurate privacy contract.
 - **Scope gate** — implement only features present in the current phase of IMPLEMENTATION-ROADMAP.md
 - **Dot grid** — uses Canvas (not SVG) for the dot grid visualization: 10,000 elements at 60fps require it
 
 <!-- portfolio-context:start -->
+
 # Portfolio Context
 
 ## What This Project Is
@@ -89,7 +90,7 @@ All 7 chapters implemented and playable. See IMPLEMENTATION-ROADMAP.md for archi
 - Do not add `output: 'standalone'` or server functions — full static export only
 - Do not change `src/types/chapter.ts` interfaces without updating all 7 chapter configs
 - Do not render KaTeX server-side — always use `dynamic(() => import('./EquationOverlay'), { ssr: false })`
-- ~~Do not add any tracking, analytics, or telemetry in v1~~ — superseded 2026-05-11: `@vercel/analytics` enabled portfolio-wide for deployed Vercel apps. Privacy-respecting, no PII. Sentry NOT enabled here; Premise only.
+- Do not add tracking, analytics, telemetry, or persistence without explicit approval. The second edition restores the repo's privacy-preserving contract.
 
 ## Next Recommended Move
 

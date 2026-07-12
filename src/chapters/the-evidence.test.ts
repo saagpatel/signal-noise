@@ -68,7 +68,7 @@ describe("the-evidence config", () => {
 			);
 		});
 
-		it("independence=0% means second witness adds nothing", () => {
+		it("a 0% second-witness weight adds nothing", () => {
 			const model = config.compute({
 				...defaults,
 				evidenceIndependence: 0,
@@ -79,7 +79,7 @@ describe("the-evidence config", () => {
 			);
 		});
 
-		it("independence=100% gives full effect (posteriorGuilt > posteriorAfterFirst significantly)", () => {
+		it("a 100% second-witness weight applies the full illustrative LR", () => {
 			const model = config.compute({
 				...defaults,
 				evidenceIndependence: 100,

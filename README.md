@@ -2,7 +2,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript)](#) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
 
-> Drag a slider. Update your prior. Watch Bayes' theorem stop being abstract.
+> Change an assumption. Watch a confident answer become conditional.
 
 Signal & Noise is an interactive essay teaching Bayesian reasoning and probabilistic thinking through seven chapters of live, manipulable visualizations. Second-person narrative. No login. No download. Every concept is something you feel before you calculate.
 
@@ -17,14 +17,17 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Usage
+
 ```bash
 # Development
 npm run dev
@@ -38,14 +41,14 @@ npm run typecheck
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 14 (static export) |
-| Language | TypeScript 5, strict mode |
-| Visualization | D3 v7 (math/scales; React owns DOM) |
-| Math | KaTeX 0.16 |
-| Animation | Framer Motion 11 |
-| Styling | Tailwind CSS 3 |
+| Layer         | Technology                                              |
+| ------------- | ------------------------------------------------------- |
+| Framework     | Next.js 15 (static export)                              |
+| Language      | TypeScript 6, strict mode                               |
+| Visualization | D3 v7 (math/scales; React owns DOM)                     |
+| Math          | KaTeX 0.16                                              |
+| Animation     | Framer Motion 11                                        |
+| Styling       | Tailwind CSS 4 with a Tailwind 3 compatibility override |
 
 ## Architecture
 

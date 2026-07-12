@@ -4,22 +4,22 @@ import type { ChapterConfig, ChapterModel } from "@/types/chapter";
 const config: ChapterConfig = {
 	slug: "the-convergence",
 	number: 7,
-	title: "The Convergence",
-	subtitle: "One Pattern, Seven Disguises",
-	hook: "You\u2019ve seen this equation six times in six disguises. Now watch them all move together.",
+	title: "The Assumption Check",
+	subtitle: "Four Models, Different Failure Modes",
+	hook: "Four models can look certain for different reasons. Stress their assumptions before trusting their output.",
 	sliders: [
 		{
 			id: "convergenceParam",
-			label: "Shared Parameter",
+			label: "Comparison Sweep",
 			min: 0,
 			max: 1,
 			step: 0.01,
 			defaultValue: 0.5,
 			description:
-				"Maps to the primary parameter of each chapter simultaneously",
+				"Sweeps four unrelated parameters across their own ranges for comparison",
 		},
 	],
-	equationLatex: String.raw`P(H|E) = \frac{\htmlClass{term-convergenceParam}{P(E|H)} \cdot \htmlClass{term-convergenceParam}{P(H)}}{P(E)}`,
+	equationLatex: String.raw`\text{output} = f\!\left(\htmlClass{term-convergenceParam}{\text{inputs}},\,\text{assumptions}\right)`,
 	equationTerms: [
 		{ id: "convergenceParam", latexClass: "term-convergenceParam" },
 	],
@@ -37,7 +37,7 @@ const config: ChapterConfig = {
 	},
 	annotation: (model: ChapterModel): string => {
 		const d = model.derived;
-		return `Base rate: **${d.ch1BaseRate.toFixed(1)}%** | Threshold: **${d.ch2Threshold.toFixed(1)}\u03c3** | Poll avg: **${d.ch3PollAvg.toFixed(1)}%** | Prior: **${d.ch4Prior.toFixed(0)}%** \u2014 one slider, four models, same pattern.`;
+		return `Base rate: **${d.ch1BaseRate.toFixed(1)}%** | Threshold: **${d.ch2Threshold.toFixed(1)}\u03c3** | Poll avg: **${d.ch3PollAvg.toFixed(1)}%** | Prior: **${d.ch4Prior.toFixed(0)}%** \u2014 a side-by-side sensitivity sweep, not a shared quantity.`;
 	},
 };
 

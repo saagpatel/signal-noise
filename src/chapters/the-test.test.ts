@@ -111,6 +111,19 @@ describe("the-test config", () => {
 			});
 			expect(model.derived.ppv).toBeGreaterThan(0.99);
 		});
+
+		it("labels 1 - PPV as the false discovery rate", () => {
+			const model = config.compute({
+				baseRate: 1,
+				sensitivity: 95,
+				specificity: 95,
+			});
+			expect(model.derived.falseDiscoveryRate).toBeCloseTo(
+				1 - model.derived.ppv,
+				10,
+			);
+			expect(model.derived).not.toHaveProperty("fpr");
+		});
 	});
 
 	describe("annotation", () => {

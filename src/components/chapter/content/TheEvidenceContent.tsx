@@ -19,7 +19,9 @@ export default function TheEvidenceContent() {
 					the same waiting room before testifying?
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
-					The answer changes everything. And the math will show you exactly why.
+					The answer can change the weight of the second account. The model here
+					is a sensitivity analysis; it does not estimate dependence from real
+					testimony.
 				</p>
 			</NarrativeBlock>
 
@@ -29,9 +31,10 @@ export default function TheEvidenceContent() {
 					The Collapse
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
-					Drag the <strong className="text-white">Independence</strong> slider
-					to 0%. Watch the second branch of the tree collapse. The third node
-					shrinks back toward the second &mdash; the posterior barely moves.
+					Drag the <strong className="text-white">Second-witness weight</strong>{" "}
+					slider to 0%. Watch the second branch of the tree collapse. The third
+					node shrinks back toward the second &mdash; the posterior barely
+					moves.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					When witnesses aren&apos;t independent &mdash; when they talked before
@@ -81,10 +84,9 @@ export default function TheEvidenceContent() {
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Toggle the equation overlay above. The exponent on the second
-					likelihood ratio is the independence parameter. At 100%, it&apos;s
-					full strength &mdash; the second witness carries the same evidential
-					weight as the first. At 0%, it collapses to 1 &mdash; no update at
-					all.
+					likelihood ratio is an illustrative weight. At 100%, it&apos;s full
+					strength &mdash; the second witness carries the same evidential weight
+					as the first. At 0%, it collapses to 1 &mdash; no update at all.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					The sigma function wraps everything in a logistic curve, keeping the
@@ -98,8 +100,9 @@ export default function TheEvidenceContent() {
 					starting point. The{" "}
 					<strong className="text-white">Witness Reliability</strong> determines
 					how loud each piece of evidence is. And{" "}
-					<strong className="text-white">Independence</strong> decides whether
-					the second voice is truly new information &mdash; or just an echo.
+					<strong className="text-white">Second-witness weight</strong> shows
+					how the update changes under an assumed discount. It does not infer
+					that discount from evidence about the witnesses.
 				</p>
 			</NarrativeBlock>
 
@@ -109,14 +112,15 @@ export default function TheEvidenceContent() {
 					The Pattern
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
-					Six chapters. Six disguises. One equation. The base rate fooled the
-					doctor. Noise fooled the astronomer. Aggregation tamed the forecaster.
-					Anchoring trapped the updater. Fat tails humbled the trader. And
-					correlation deceived the jury.
+					Six chapters expose different ways a confident answer can outrun its
+					assumptions. The base rate fooled the doctor. Noise fooled the
+					astronomer. Aggregation tamed the forecaster. Anchoring trapped the
+					updater. Fat tails humbled the trader. And correlation deceived the
+					jury.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-400">
-					In the final chapter, you&apos;ll watch all six move together &mdash;
-					and see that the pattern was always the same.
+					In the final chapter, you&apos;ll compare several models without
+					pretending that their parameters or equations are interchangeable.
 				</p>
 			</NarrativeBlock>
 		</div>

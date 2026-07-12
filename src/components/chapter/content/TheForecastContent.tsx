@@ -79,8 +79,11 @@ export default function TheForecastContent() {
 					gets narrower &mdash; you become more <em>precisely wrong</em>.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
-					This is what happened in 2016 and 2020. The polls weren&apos;t random
-					noise. They had a systematic bias that aggregation couldn&apos;t cure.
+					Real polling errors can be shared across polls through common design,
+					weighting, coverage, or nonresponse problems. Aggregation reduces an
+					independent error component; it does not identify or remove a shared
+					one. Historical postmortems require more specific models than this
+					illustration provides.
 				</p>
 			</NarrativeBlock>
 
