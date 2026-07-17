@@ -48,7 +48,7 @@ const config: ChapterConfig = {
 			description: "Persistent polling error that aggregation cannot fix",
 		},
 	],
-	equationLatex: String.raw`P(\text{win}) = \Phi\!\left(\frac{\htmlClass{term-pollAverage}{\bar{x}} + \htmlClass{term-systematicBias}{b} - 50\%}{\htmlClass{term-marginOfError}{\text{MoE}} / \sqrt{\htmlClass{term-numberOfPolls}{N}}}\right)`,
+	equationLatex: String.raw`P(\text{win}) = \Phi\!\left(\frac{\htmlClass{term-pollAverage}{\bar{x}} + \htmlClass{term-systematicBias}{b} - 50\%}{\htmlClass{term-marginOfError}{\text{MoE}} / (1.96\sqrt{\htmlClass{term-numberOfPolls}{N}})}\right)`,
 	equationTerms: [
 		{ id: "pollAverage", latexClass: "term-pollAverage" },
 		{ id: "marginOfError", latexClass: "term-marginOfError" },

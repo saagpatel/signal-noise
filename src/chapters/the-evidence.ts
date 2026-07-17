@@ -40,7 +40,7 @@ const config: ChapterConfig = {
 				"Illustrative fraction of a second witness's likelihood-ratio weight",
 		},
 	],
-	equationLatex: String.raw`P(\text{guilt}) = \sigma\!\left(\log\frac{\htmlClass{term-priorGuilt}{p}}{1-p} + \log\htmlClass{term-evidenceReliability}{LR_1} + \htmlClass{term-evidenceIndependence}{\rho}\log\htmlClass{term-evidenceReliability}{LR_1}\right)`,
+	equationLatex: String.raw`P(\text{guilt}) = \sigma\!\left(\log\frac{\htmlClass{term-priorGuilt}{p}}{1-p} + \log\htmlClass{term-evidenceReliability}{LR_1} + \htmlClass{term-evidenceIndependence}{w}\log\htmlClass{term-evidenceReliability}{LR_1}\right)`,
 	equationTerms: [
 		{ id: "priorGuilt", latexClass: "term-priorGuilt" },
 		{ id: "evidenceReliability", latexClass: "term-evidenceReliability" },
