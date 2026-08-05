@@ -20,7 +20,7 @@ approving by analogy.
 Review this branch from the minimum content baseline below, then record the
 actual clean `HEAD` you inspected:
 
-- repository: `/Users/d/Projects/_codex-worktrees/signal-noise-g1`
+- repository: `signal-noise`
 - branch: `codex/manipulable-library-g1`
 - minimum content baseline: `c092914`
 
