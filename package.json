@@ -20,7 +20,7 @@
 		"d3-scale": "^4.0.2",
 		"d3-shape": "^3.2.0",
 		"framer-motion": "^12.42.2",
-		"katex": "^0.18.2",
+		"katex": "^0.18.4",
 		"next": "^15.5.21",
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8"
@@ -34,19 +34,19 @@
 		"@types/d3-hierarchy": "^3.1.7",
 		"@types/d3-interpolate": "^3.0.4",
 		"@types/d3-scale": "^4.0.9",
-		"@types/d3-shape": "^3.1.8",
+		"@types/d3-shape": "^3.2.0",
 		"@types/katex": "^0.16.0",
-		"@types/node": "^26.2.0",
+		"@types/node": "^26.4.0",
 		"@types/react": "^19.2.18",
-		"@types/react-dom": "^19.2.4",
+		"@types/react-dom": "^19.2.5",
 		"autoprefixer": "^10.5.4",
-		"eslint": "^10.8.1",
+		"eslint": "^10.9.1",
 		"eslint-config-next": "^15.5.19",
 		"postcss": "^8.5.26",
 		"prettier": "^3.9.6",
 		"tailwindcss": "^4.3.2",
 		"typescript": "^6.0.3",
 		"vite": "^7.3.5",
-		"vitest": "^4.1.10"
+		"vitest": "^4.1.11"
 	}
 }
