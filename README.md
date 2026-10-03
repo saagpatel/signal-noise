@@ -17,7 +17,8 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 ## Quick Start
 
 ### Prerequisites
-- Node.js 22 (the CI version) or a newer supported runtime
+- Node.js 22.13.0 or newer within 22.x (the CI line), or Node.js 24+
+  (pnpm 11.5.2 and the locked ESLint toolchain require the 22.13 floor)
 - pnpm 11.5.2, matching `packageManager` in `package.json`
 
 ### Source checks and local preview
