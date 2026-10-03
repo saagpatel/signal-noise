@@ -83,7 +83,7 @@ export function WaterfallDisplay({
 	}, [width, height, dpr]);
 
 	// Stable draw callback — reads from refs
-	const draw = useCallback(() => {
+	const draw = useCallback(function draw() {
 		if (!dirtyRef.current) {
 			rafRef.current = requestAnimationFrame(draw);
 			return;
@@ -124,7 +124,6 @@ export function WaterfallDisplay({
 
 		dirtyRef.current = false;
 		rafRef.current = requestAnimationFrame(draw);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {

@@ -94,7 +94,7 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 	}, [width, height, dpr]);
 
 	// rAF draw loop — stable callback, reads from refs
-	const draw = useCallback(() => {
+	const draw = useCallback(function draw() {
 		if (!dirtyRef.current) {
 			rafRef.current = requestAnimationFrame(draw);
 			return;
@@ -151,7 +151,6 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 
 		dirtyRef.current = false;
 		rafRef.current = requestAnimationFrame(draw);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {

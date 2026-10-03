@@ -35,8 +35,8 @@ pnpm run build
 These match [CI](.github/workflows/ci.yml). `pnpm test` runs Vitest unit tests;
 for a focused mathematical change, use for example
 `pnpm exec vitest run src/lib/math.test.ts`. There is no separate standalone
-format check; the legacy `pnpm lint` script calls `next lint`, which Next.js 16
-no longer provides, so it is not a valid verification command.
+format check. Also run `pnpm lint` (or `make lint`) locally; it uses the Next.js
+ESLint flat config and ignores generated build and test output.
 
 Start the local development preview with `pnpm run dev --hostname 127.0.0.1`,
 then open `http://127.0.0.1:3000`. Production builds export static files into

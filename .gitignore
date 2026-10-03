@@ -24,3 +24,7 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Playwright output
+test-results/
+playwright-report/
