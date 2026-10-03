@@ -28,7 +28,7 @@ Signal & Noise is a static interactive essay teaching Bayesian reasoning through
 ## Core Rules
 
 - Keep the site fully static; do not add server functions or standalone output.
-- Do not add tracking, analytics, telemetry, or persistence unless explicitly requested.
+- `@vercel/analytics` is already enabled (no PII); do not add further tracking, telemetry, Sentry, or persistence unless explicitly requested.
 - Use D3 for math/scales only; React owns DOM rendering.
 - Do not render KaTeX server-side.
 - Do not change chapter interfaces without updating all seven chapter configs.
@@ -43,12 +43,12 @@ Signal & Noise is a static interactive essay teaching Bayesian reasoning through
 
 ## Verification
 
-- Use `.codex/verify.commands` as the canonical verifier for routine Codex work.
-- Current canonical verifier:
+- Canonical verifier (matches `.github/workflows/ci.yml`; there is no `.codex/verify.commands` in this repo):
   - `pnpm install --frozen-lockfile`
   - `pnpm test`
   - `pnpm run typecheck`
   - `pnpm run build`
+- `pnpm lint` is not a valid check: it calls `next lint`, which Next.js 16 removed.
 - Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/`; use the local config and conditional browser checks in [README.md](README.md#source-checks-and-local-preview) when browser behavior changes. The default config targets the deployed site.
 - Current caveat: `next build` passes but emits existing `metadataBase` warnings for social image URL resolution.
 - Add browser or Playwright checks for interactive essay behavior changes.
