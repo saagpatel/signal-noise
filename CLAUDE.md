@@ -29,9 +29,12 @@ Interactive essay teaching Bayesian reasoning through direct manipulation of liv
 ```bash
 pnpm dev        # local dev server
 pnpm build      # static export (next build)
-pnpm lint       # ESLint
+pnpm test       # Vitest unit tests
+pnpm typecheck  # TypeScript check
 ```
 
+See [README.md](README.md#source-checks-and-local-preview) for the frozen install,
+static preview, focused tests and local versus deployed browser checks.
 See IMPLEMENTATION-ROADMAP.md for architecture details.
 
 ## Conventions

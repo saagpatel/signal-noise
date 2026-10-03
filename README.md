@@ -17,31 +17,56 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 ## Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 22 (the CI version) or a newer supported runtime
+- pnpm 11.5.2, matching `packageManager` in `package.json`
 
-### Installation
-```bash
-npm install
+### Source checks and local preview
+
+Run from the repository root:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm run typecheck
+pnpm test
+pnpm run build
 ```
 
-### Usage
-```bash
-# Development
-npm run dev
+These match [CI](.github/workflows/ci.yml). `pnpm test` runs Vitest unit tests;
+for a focused mathematical change, use for example
+`pnpm exec vitest run src/lib/math.test.ts`. There is no separate standalone
+format check; the legacy `pnpm lint` script calls `next lint`, which Next.js 16
+no longer provides, so it is not a valid verification command.
 
-# Static export
-npm run build && npm run start
+Start the local development preview with `pnpm run dev --hostname 127.0.0.1`,
+then open `http://127.0.0.1:3000`. Production builds export static files into
+`out/`; serve that directory with a local static server or your existing hosting
+preview. `pnpm start` invokes `next start` and cannot serve `output: 'export'`.
+Do not use it as a static-export check.
 
-# Type-check
-npm run typecheck
+For changes to chapter navigation, sliders, equations, visualization or responsive
+layout, inspect the affected flow in a local browser at desktop and narrow widths.
+A local Playwright smoke is also available:
+
+```sh
+pnpm exec playwright install chromium
+pnpm exec playwright test --config playwright.local.config.ts
 ```
+
+That config starts a loopback-only dev server and uses the local URL; keep port
+3000 free. To inspect test discovery without starting a server or browser, use
+`pnpm exec playwright test --config playwright.local.config.ts --list`.
+The default `playwright.config.ts` targets the deployed Vercel site, so a bare
+Playwright invocation is a **deployed-site** check requiring that separate scope.
+These smoke specs cover landing/chapter/navigation only; sliders, equations and
+responsive layout still need relevant browser checks. Local source checks are
+separate from deployed behavior and human comprehension.
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 14 (static export) |
-| Language | TypeScript 5, strict mode |
+| Framework | Next.js 16 (static export) |
+| Language | TypeScript 6, strict mode |
 | Visualization | D3 v7 (math/scales; React owns DOM) |
 | Math | KaTeX 0.16 |
 | Animation | Framer Motion 11 |
