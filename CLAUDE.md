@@ -32,6 +32,7 @@ pnpm dev        # local dev server
 pnpm build      # static export (next build) to out/
 pnpm test       # Vitest unit tests
 pnpm typecheck  # TypeScript check
+pnpm lint       # ESLint flat config (also make lint)
 ```
 
 See [README.md](README.md#source-checks-and-local-preview) for the frozen install,
@@ -47,6 +48,7 @@ See IMPLEMENTATION-ROADMAP.md for architecture details.
 
 ## Gotchas
 
+- **ESLint compatibility** — use ESLint 9 with the current Next.js lint plugins; ESLint 10 removes context APIs still used by the locked React plugin.
 - **D3/React boundary** — use `d3.select()` only on non-React-managed elements (canvas, non-React refs); React owns the DOM for all component-rendered elements
 - **Static-only** — no `localStorage`, `sessionStorage`, `output: 'standalone'`, or server functions; full static export only
 - **KaTeX SSR** — always import via `dynamic(() => import('./EquationOverlay'), { ssr: false })`; server-side rendering will break
@@ -86,7 +88,7 @@ pnpm test
 pnpm run build                   # static export to out/
 ```
 
-These match CI (`.github/workflows/ci.yml`). `pnpm lint` is not a valid check: it calls `next lint`, which Next.js 16 removed.
+These match CI (`.github/workflows/ci.yml`). Also run `pnpm lint` (or `make lint`) locally; ESLint uses `eslint.config.mjs` and ignores generated output.
 
 ## Known Risks
 

@@ -48,7 +48,7 @@ Signal & Noise is a static interactive essay teaching Bayesian reasoning through
   - `pnpm test`
   - `pnpm run typecheck`
   - `pnpm run build`
-- `pnpm lint` is not a valid check: it calls `next lint`, which Next.js 16 removed.
+- Additional local gate: `pnpm lint` (or `make lint`) runs ESLint with `eslint.config.mjs`; generated output is ignored.
 - Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/`; use the local config and conditional browser checks in [README.md](README.md#source-checks-and-local-preview) when browser behavior changes. The default config targets the deployed site.
 - Current caveat: `next build` passes but emits existing `metadataBase` warnings for social image URL resolution.
 - Add browser or Playwright checks for interactive essay behavior changes.

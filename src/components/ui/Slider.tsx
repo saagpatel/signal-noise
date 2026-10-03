@@ -101,7 +101,6 @@ export function Slider({
 					{unit ? <span className="ml-0.5 text-muted">{unit}</span> : null}
 				</span>
 			</div>
-			{/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
 			<div
 				ref={trackRef}
 				role="slider"
