@@ -12,7 +12,7 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 - **Direct manipulation** — every visualization is a live control; drag priors, adjust thresholds, watch posterior distributions update in real time
 - **KaTeX equations** — inline math renders client-side without a build step
 - **Scroll animations** — Framer Motion reveal animations guide pacing through the narrative
-- **Static export** — fully pre-renderable; no server required after `npm run build`
+- **Static export** — fully pre-renderable; no server required after `pnpm run build`
 
 ## Quick Start
 

@@ -27,8 +27,9 @@ Interactive essay teaching Bayesian reasoning through direct manipulation of liv
 ## Build / Run
 
 ```bash
+pnpm install --frozen-lockfile  # pnpm 11.5.2 per packageManager
 pnpm dev        # local dev server
-pnpm build      # static export (next build)
+pnpm build      # static export (next build) to out/
 pnpm test       # Vitest unit tests
 pnpm typecheck  # TypeScript check
 ```
@@ -68,21 +69,24 @@ All 7 chapters implemented and playable. See IMPLEMENTATION-ROADMAP.md for archi
 
 ## Stack
 
-- Next.js: 14 (App Router, `output: 'export'` — full static site)
-- React: 18 (hooks only, no class components)
-- TypeScript: 5 (strict mode, zero `any` types)
+- Next.js: 16 (App Router, `output: 'export'` — full static site)
+- React: 19 (hooks only, no class components)
+- TypeScript: 6 (strict mode, zero `any` types)
 - D3: v7 — visualizations (math/scales only — React owns the DOM)
-- KaTeX: 0.16 — equation rendering (client-side only via `dynamic` import)
-- Framer Motion: 11 — scroll reveal, transitions
-- Tailwind CSS: 3 — all styling
+- KaTeX: 0.18 — equation rendering (client-side only via `dynamic` import)
+- Framer Motion: 13 — scroll reveal, transitions
+- Tailwind CSS: 3 (3.4 via the pnpm override) — all styling
 
 ## How To Run
 
-- TypeScript strict mode — zero `any` types, zero `@ts-ignore`
-- kebab-case for files, PascalCase for React components
-- D3 used for math and scales only — never `d3.select()` on React-managed DOM elements
-- Conventional commits: `feat:`, `fix:`, `chore:`, `content:`
-- Every math function in `math.ts` must have an inline assertion for at least one known value
+```bash
+pnpm install --frozen-lockfile   # pnpm 11.5.2 per packageManager
+pnpm run typecheck
+pnpm test
+pnpm run build                   # static export to out/
+```
+
+These match CI (`.github/workflows/ci.yml`). `pnpm lint` is not a valid check: it calls `next lint`, which Next.js 16 removed.
 
 ## Known Risks
 
