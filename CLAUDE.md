@@ -6,12 +6,12 @@ Interactive essay teaching Bayesian reasoning through direct manipulation of liv
 
 ## Stack
 
-- Next.js 14 — App Router, `output: 'export'` (full static site)
-- React 18 — hooks only, no class components
-- TypeScript 5 — strict mode, zero `any` types
+- Next.js 16 — App Router, `output: 'export'` (full static site)
+- React 19 — hooks only, no class components
+- TypeScript 6 — strict mode, zero `any` types
 - D3 v7 — math/scales only; React owns the DOM
-- KaTeX 0.16 — equation rendering, client-side only via `dynamic` import
-- Framer Motion 11 — scroll reveal, transitions
+- KaTeX 0.18 — equation rendering, client-side only via `dynamic` import
+- Framer Motion 13 — scroll reveal, transitions
 - Tailwind CSS 3 — all styling
 
 ## Architecture

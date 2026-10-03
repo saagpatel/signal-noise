@@ -68,8 +68,8 @@ separate from deployed behavior and human comprehension.
 | Framework | Next.js 16 (static export) |
 | Language | TypeScript 6, strict mode |
 | Visualization | D3 v7 (math/scales; React owns DOM) |
-| Math | KaTeX 0.16 |
-| Animation | Framer Motion 11 |
+| Math | KaTeX 0.18 |
+| Animation | Framer Motion 13 |
 | Styling | Tailwind CSS 3 |
 
 ## Architecture
