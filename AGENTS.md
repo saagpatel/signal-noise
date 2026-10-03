@@ -49,7 +49,7 @@ Signal & Noise is a static interactive essay teaching Bayesian reasoning through
   - `pnpm test`
   - `pnpm run typecheck`
   - `pnpm run build`
-- Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/` and should be run with Playwright when browser behavior changes.
+- Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/`; use the local config and conditional browser checks in [README.md](README.md#source-checks-and-local-preview) when browser behavior changes. The default config targets the deployed site.
 - Current caveat: `next build` passes but emits existing `metadataBase` warnings for social image URL resolution.
 - Add browser or Playwright checks for interactive essay behavior changes.
 
