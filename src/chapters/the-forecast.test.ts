@@ -129,6 +129,21 @@ describe("the-forecast config", () => {
 	});
 
 	describe("equation", () => {
+		it("matches the 1.96-scaled standard error used by the model", () => {
+			const defaults = {
+				pollAverage: 52,
+				marginOfError: 3,
+				numberOfPolls: 5,
+				systematicBias: 0,
+			};
+			const model = config.compute(defaults);
+			expect(config.equationLatex).toContain("1.96");
+			expect(model.derived.aggregatedStd).toBeCloseTo(
+				3 / (1.96 * Math.sqrt(5)),
+				10,
+			);
+			expect(model.derived.winProbability).toBeCloseTo(0.99826, 4);
+		});
 		it("has non-empty equationLatex", () => {
 			expect(config.equationLatex.length).toBeGreaterThan(0);
 		});
