@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useCanvasSize } from "@/hooks/useCanvasSize";
 import {
 	type CellClassification,
@@ -42,8 +42,7 @@ export function WaterfallDisplay({
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const waterfallDataRef = useRef<number[][] | null>(null);
 	const prevSeedRef = useRef<number>(0);
-	const dirtyRef = useRef(true);
-	const rafRef = useRef<number>(0);
+	const [canvasUnavailable, setCanvasUnavailable] = useState(false);
 	const modelRef = useRef(model);
 	const dprRef = useRef(1);
 
@@ -63,7 +62,6 @@ export function WaterfallDisplay({
 			);
 			prevSeedRef.current = newSeed;
 		}
-		dirtyRef.current = true;
 	}, [model]);
 
 	// Canvas sizing
@@ -75,32 +73,21 @@ export function WaterfallDisplay({
 		canvas.width = width * dpr;
 		canvas.height = height * dpr;
 
-		const ctx = canvas.getContext("2d");
-		if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
 		dprRef.current = dpr;
-		dirtyRef.current = true;
 	}, [width, height, dpr]);
 
-	// Stable draw callback — reads from refs
+	// Draw once for each model or canvas-size invalidation.
 	const draw = useCallback(function draw() {
-		if (!dirtyRef.current) {
-			rafRef.current = requestAnimationFrame(draw);
-			return;
-		}
-
 		const canvas = canvasRef.current;
 		const data = waterfallDataRef.current;
-		if (!canvas || !data) {
-			rafRef.current = requestAnimationFrame(draw);
-			return;
-		}
+		if (!canvas || !data) return;
 
 		const ctx = canvas.getContext("2d");
 		if (!ctx) {
-			rafRef.current = requestAnimationFrame(draw);
+			setCanvasUnavailable(true);
 			return;
 		}
+		ctx.setTransform(dprRef.current, 0, 0, dprRef.current, 0, 0);
 
 		const currentDpr = dprRef.current;
 		const w = canvas.width / currentDpr;
@@ -121,25 +108,31 @@ export function WaterfallDisplay({
 				ctx.fillRect(bin * cellW, row * cellH, cellW + 0.5, cellH + 0.5);
 			}
 		}
-
-		dirtyRef.current = false;
-		rafRef.current = requestAnimationFrame(draw);
 	}, []);
 
 	useEffect(() => {
-		rafRef.current = requestAnimationFrame(draw);
-		return () => cancelAnimationFrame(rafRef.current);
-	}, [draw]);
+		if (canvasUnavailable || width === 0 || height === 0) return;
+		const frame = requestAnimationFrame(draw);
+		return () => cancelAnimationFrame(frame);
+	}, [draw, canvasUnavailable, width, height, dpr, model]);
 
 	return (
 		<div className={className}>
 			<div
 				ref={containerRef}
 				className="aspect-[2/1] w-full overflow-hidden rounded-lg bg-zinc-900"
-				aria-label="Waterfall display visualization"
-				role="img"
+				aria-label={
+					canvasUnavailable ? undefined : "Waterfall display visualization"
+				}
+				role={canvasUnavailable ? "status" : "img"}
 			>
-				<canvas ref={canvasRef} className="h-full w-full" />
+				{canvasUnavailable ? (
+					<p className="p-4 text-sm text-zinc-300">
+						This visualization is unavailable in your browser.
+					</p>
+				) : (
+					<canvas ref={canvasRef} className="h-full w-full" />
+				)}
 			</div>
 			{!compact && (
 				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
