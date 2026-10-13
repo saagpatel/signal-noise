@@ -124,10 +124,10 @@ export default function TheUpdateContent() {
 					stakes change.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-400">
-					In the next chapter, you&apos;ll feed real price data into this same
-					update machinery &mdash; and discover why even perfect Bayesian
-					reasoning can&apos;t save you from a market that&apos;s already priced
-					in the signal.
+					In the next chapter, you&apos;ll apply this update machinery to
+					hypothetical price moves &mdash; and discover why even perfect
+					Bayesian reasoning can&apos;t save you from a market that&apos;s
+					already priced in the signal.
 				</p>
 			</NarrativeBlock>
 		</div>
