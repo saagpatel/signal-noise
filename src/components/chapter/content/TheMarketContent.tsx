@@ -53,11 +53,12 @@ export default function TheMarketContent() {
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
 					Drag the <strong className="text-white">Trading Days</strong> slider
-					to 252. Now you&apos;re asking a different question: across an entire
-					year of trading, how many days would you expect to see a move this
+					to 252. Now you&apos;re asking a different question: across this
+					selected horizon, how many days would you expect to see a move this
 					extreme by chance alone? Even a p-value of 0.02 means five days a
 					year. What looked like a once-in-a-lifetime event happens every other
-					month.
+					month. The displayed expected count scales with the selected number of
+					trading days.
 				</p>
 			</NarrativeBlock>
 

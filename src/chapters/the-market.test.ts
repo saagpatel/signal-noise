@@ -73,6 +73,26 @@ describe("the-market config", () => {
 			);
 		});
 
+		it.each([
+			{ days: 1, expected: 0.0173 },
+			{ days: 252, expected: 4.3489 },
+		])(
+			"scales expected moves over $days selected days",
+			({ days, expected }) => {
+				const model = config.compute({
+					dailyMove: 3,
+					annualVolatility: 20,
+					observationDays: days,
+				});
+				expect(model.derived.expectedRandomMoves).toBeCloseTo(
+					days * model.derived.pValue,
+					10,
+				);
+				expect(model.derived.expectedRandomMoves).toBeCloseTo(expected, 3);
+				expect(config.annotation(model)).toContain(`over **${days}** trading`);
+			},
+		);
+
 		it("computes dailyStd = annualVol / sqrt(252)", () => {
 			const model = config.compute({
 				dailyMove: 3,
@@ -113,6 +133,9 @@ describe("the-market config", () => {
 	describe("equation", () => {
 		it("has non-empty equationLatex", () => {
 			expect(config.equationLatex.length).toBeGreaterThan(0);
+		});
+		it("includes the observation horizon term", () => {
+			expect(config.equationLatex).toContain("term-observationDays");
 		});
 
 		it("has 3 equation terms", () => {
