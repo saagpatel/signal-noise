@@ -25,6 +25,19 @@ describe("bayesUpdate", () => {
 	});
 });
 
+describe("known reference values", () => {
+	it("keeps the established mathematical reference values", () => {
+		expect(ppv(0.01, 0.95, 0.95)).toBeCloseTo(0.161, 3);
+		expect(normalCDF(0, 0, 1)).toBeCloseTo(0.5, 3);
+		expect(normalCDF(1.96, 0, 1)).toBeCloseTo(0.975, 3);
+		expect(dPrime(1, 1)).toBeCloseTo(1, 3);
+		expect(effectiveMarginOfError(3, 9)).toBeCloseTo(1, 3);
+		expect(toLogOdds(0.5)).toBeCloseTo(0, 3);
+		expect(fromLogOdds(0)).toBeCloseTo(0.5, 3);
+		expect(pValueTwoTailed(1.96)).toBeCloseTo(0.05, 2);
+	});
+});
+
 describe("ppv", () => {
 	it("returns ~0.161 for 1% base rate, 95% sensitivity, 95% specificity", () => {
 		expect(ppv(0.01, 0.95, 0.95)).toBeCloseTo(0.161, 2);
