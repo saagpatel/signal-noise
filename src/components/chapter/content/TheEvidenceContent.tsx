@@ -109,14 +109,14 @@ export default function TheEvidenceContent() {
 					The Pattern
 				</h2>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
-					Six chapters. Six disguises. One equation. The base rate fooled the
-					doctor. Noise fooled the astronomer. Aggregation tamed the forecaster.
-					Anchoring trapped the updater. Fat tails humbled the trader. And
-					correlation deceived the jury.
+					Six chapters. Four interactive models converge on the same equation.
+					The base rate fooled the doctor. Noise fooled the astronomer.
+					Aggregation tamed the forecaster. Anchoring trapped the updater. Fat
+					tails humbled the trader. And correlation deceived the jury.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-400">
-					In the final chapter, you&apos;ll watch all six move together &mdash;
-					and see that the pattern was always the same.
+					In the final chapter, you&apos;ll watch the four models move together
+					&mdash; and see that the pattern was always the same.
 				</p>
 			</NarrativeBlock>
 		</div>

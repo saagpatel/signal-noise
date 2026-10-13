@@ -53,7 +53,7 @@ const config: ChapterConfig = {
 		const specificity = params.specificity / 100;
 
 		const ppvValue = ppv(baseRate, sensitivity, specificity);
-		const fpr = 1 - ppvValue;
+		const falseDiscoveryRate = 1 - ppvValue;
 
 		const sick = Math.round(POPULATION * baseRate);
 		const healthy = POPULATION - sick;
@@ -66,7 +66,7 @@ const config: ChapterConfig = {
 			params,
 			derived: {
 				ppv: ppvValue,
-				fpr,
+				falseDiscoveryRate,
 				population: POPULATION,
 				sick,
 				healthy,

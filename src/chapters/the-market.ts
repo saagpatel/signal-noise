@@ -38,7 +38,7 @@ const config: ChapterConfig = {
 			description: "Number of trading days observed",
 		},
 	],
-	equationLatex: String.raw`z = \frac{\htmlClass{term-dailyMove}{x}}{\htmlClass{term-annualVolatility}{\sigma_{\text{annual}}} / \sqrt{252}} \quad;\quad p = 2\!\left(1 - \Phi(|z|)\right)`,
+	equationLatex: String.raw`z = \frac{\htmlClass{term-dailyMove}{x}}{\htmlClass{term-annualVolatility}{\sigma_{\text{annual}}} / \sqrt{252}} \quad;\quad p = 2\!\left(1 - \Phi(|z|)\right),\quad E = \htmlClass{term-observationDays}{D}p`,
 	equationTerms: [
 		{ id: "dailyMove", latexClass: "term-dailyMove" },
 		{ id: "annualVolatility", latexClass: "term-annualVolatility" },
@@ -70,8 +70,12 @@ const config: ChapterConfig = {
 		const vol = model.params.annualVolatility.toFixed(0);
 		const z = Math.abs(d.zScore).toFixed(2);
 		const p = d.pValue < 0.001 ? "<0.001" : d.pValue.toFixed(3);
-		const expected = d.expectedRandomMoves.toFixed(1);
-		return `A **${move}%** daily move with **${vol}%** annual volatility is **${z}** standard deviations from noise. p-value: **${p}**. Expect **${expected}** moves this large per year by chance.`;
+		const expected =
+			d.expectedRandomMoves < 0.1
+				? d.expectedRandomMoves.toFixed(4)
+				: d.expectedRandomMoves.toFixed(1);
+		const days = model.params.observationDays;
+		return `A **${move}%** daily move with **${vol}%** annual volatility is **${z}** standard deviations from noise. p-value: **${p}**. Expect **${expected}** moves this large over **${days}** trading ${days === 1 ? "day" : "days"} by chance.`;
 	},
 };
 

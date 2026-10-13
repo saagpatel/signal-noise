@@ -17,6 +17,7 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 22.13.0 or newer within 22.x (the CI line), or Node.js 24+
   (pnpm 11.5.2 and the locked ESLint toolchain require the 22.13 floor)
 - pnpm 11.5.2, matching `packageManager` in `package.json`
@@ -27,22 +28,17 @@ Run from the repository root:
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm run typecheck
-pnpm test
-pnpm run build
+make check
 ```
 
-These match [CI](.github/workflows/ci.yml). `pnpm test` runs Vitest unit tests;
-for a focused mathematical change, use for example
-`pnpm exec vitest run src/lib/math.test.ts`. There is no separate standalone
-format check. Also run `pnpm lint` (or `make lint`) locally; it uses the Next.js
-ESLint flat config and ignores generated build and test output.
+These match [CI](.github/workflows/ci.yml). `make check` runs lint, formatting,
+typecheck, Vitest unit tests, and the static build. For a focused mathematical
+change, use for example `pnpm exec vitest run src/lib/math.test.ts`.
 
 Start the local development preview with `pnpm run dev --hostname 127.0.0.1`,
 then open `http://127.0.0.1:3000`. Production builds export static files into
-`out/`; serve that directory with a local static server or your existing hosting
-preview. `pnpm start` invokes `next start` and cannot serve `output: 'export'`.
-Do not use it as a static-export check.
+`out/`; after building, run `pnpm start` to preview those files with the bundled
+static server.
 
 For changes to chapter navigation, sliders, equations, visualization or responsive
 layout, inspect the affected flow in a local browser at desktop and narrow widths.
@@ -64,14 +60,32 @@ separate from deployed behavior and human comprehension.
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 16 (static export) |
-| Language | TypeScript 6, strict mode |
+| Layer         | Technology                          |
+| ------------- | ----------------------------------- |
+| Framework     | Next.js 16 (static export)          |
+| Language      | TypeScript 6, strict mode           |
 | Visualization | D3 v7 (math/scales; React owns DOM) |
-| Math | KaTeX 0.18 |
-| Animation | Framer Motion 13 |
-| Styling | Tailwind CSS 3 |
+| Math          | KaTeX 0.18                          |
+| Animation     | Framer Motion 13                    |
+| Styling       | Tailwind CSS 3                      |
+
+## Status
+
+### Stack
+
+The project exports a static Next.js site using Node.js 24, pnpm 11, React, TypeScript, Tailwind CSS 3.4, and client-rendered KaTeX. The seven chapters use local hypothetical inputs and deterministic visualizations.
+
+### Known risks
+
+- The hosting Content Security Policy has not been verified.
+- The shared Open Graph image is present locally, but hosted metadata and image delivery have not been verified.
+- Mobile performance targets have not been measured in a browser profile.
+
+### Next steps
+
+- Verify the deployed Content Security Policy and Open Graph image delivery.
+- Measure visualization performance on desktop and mobile browsers.
+- Review chapter usability with readers.
 
 ## Architecture
 

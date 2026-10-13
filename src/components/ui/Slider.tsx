@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
+import { formatSliderValue } from "./slider-format";
 
 interface SliderProps {
 	min: number;
@@ -88,7 +89,7 @@ export function Slider({
 		[value, step, min, max, onValueChange],
 	);
 
-	const displayValue = step < 1 ? value.toFixed(1) : String(Math.round(value));
+	const displayValue = formatSliderValue(value, step);
 
 	return (
 		<div className="flex flex-col gap-2">
@@ -107,6 +108,7 @@ export function Slider({
 				tabIndex={0}
 				aria-label={label}
 				aria-valuenow={value}
+				aria-valuetext={`${displayValue}${unit ?? ""}`}
 				aria-valuemin={min}
 				aria-valuemax={max}
 				data-slider-track

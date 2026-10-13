@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useCanvasSize } from "@/hooks/useCanvasSize";
 import {
 	classifyDot,
@@ -34,8 +34,8 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const positionsRef = useRef<Float32Array | null>(null);
-	const dirtyRef = useRef(true);
-	const rafRef = useRef<number>(0);
+	const [canvasUnavailable, setCanvasUnavailable] = useState(false);
+	const [dotCount, setDotCount] = useState(10_000);
 	const dotCountRef = useRef(10_000);
 	const layoutRef = useRef<ReturnType<typeof computeGridLayout> | null>(null);
 	const modelDerivedRef = useRef(model.derived);
@@ -46,7 +46,6 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 	// Keep refs in sync
 	useEffect(() => {
 		modelDerivedRef.current = model.derived;
-		dirtyRef.current = true;
 	}, [model.derived]);
 
 	useEffect(() => {
@@ -57,7 +56,6 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 	useEffect(() => {
 		if (compact) {
 			dotCountRef.current = 2_500;
-			dirtyRef.current = true;
 			return;
 		}
 
@@ -66,7 +64,7 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 
 		const handler = (e: MediaQueryListEvent) => {
 			dotCountRef.current = e.matches ? 2_500 : 10_000;
-			dirtyRef.current = true;
+			setDotCount(dotCountRef.current);
 		};
 		mq.addEventListener("change", handler);
 		return () => mq.removeEventListener("change", handler);
@@ -82,37 +80,24 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 		canvas.width = width * dpr;
 		canvas.height = height * dpr;
 
-		const ctx = canvas.getContext("2d");
-		if (ctx) {
-			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-		}
-
 		const layout = computeGridLayout(width, height, dotCountRef.current);
 		layoutRef.current = layout;
 		positionsRef.current = computePositions(layout, dotCountRef.current);
-		dirtyRef.current = true;
-	}, [width, height, dpr]);
+	}, [width, height, dpr, dotCount]);
 
-	// rAF draw loop — stable callback, reads from refs
+	// Draw once for each model or canvas-size invalidation.
 	const draw = useCallback(function draw() {
-		if (!dirtyRef.current) {
-			rafRef.current = requestAnimationFrame(draw);
-			return;
-		}
-
 		const canvas = canvasRef.current;
 		const positions = positionsRef.current;
 		const layout = layoutRef.current;
-		if (!canvas || !positions || !layout) {
-			rafRef.current = requestAnimationFrame(draw);
-			return;
-		}
+		if (!canvas || !positions || !layout) return;
 
 		const ctx = canvas.getContext("2d");
 		if (!ctx) {
-			rafRef.current = requestAnimationFrame(draw);
+			setCanvasUnavailable(true);
 			return;
 		}
+		ctx.setTransform(dprRef.current, 0, 0, dprRef.current, 0, 0);
 
 		const d = modelDerivedRef.current;
 		const counts: DotCounts = {
@@ -148,25 +133,29 @@ export function DotGrid({ model, className, compact }: DotGridProps) {
 				ctx.fillRect(positions[i * 2], positions[i * 2 + 1], dotSize, dotSize);
 			}
 		}
-
-		dirtyRef.current = false;
-		rafRef.current = requestAnimationFrame(draw);
 	}, []);
 
 	useEffect(() => {
-		rafRef.current = requestAnimationFrame(draw);
-		return () => cancelAnimationFrame(rafRef.current);
-	}, [draw]);
+		if (canvasUnavailable || width === 0 || height === 0) return;
+		const frame = requestAnimationFrame(draw);
+		return () => cancelAnimationFrame(frame);
+	}, [draw, canvasUnavailable, width, height, dpr, model.derived, dotCount]);
 
 	return (
 		<div className={className}>
 			<div
 				ref={containerRef}
 				className="aspect-square w-full overflow-hidden rounded-lg bg-zinc-900"
-				aria-label="Dot grid visualization"
-				role="img"
+				aria-label={canvasUnavailable ? undefined : "Dot grid visualization"}
+				role={canvasUnavailable ? "status" : "img"}
 			>
-				<canvas ref={canvasRef} className="h-full w-full" />
+				{canvasUnavailable ? (
+					<p className="p-4 text-sm text-zinc-300">
+						This visualization is unavailable in your browser.
+					</p>
+				) : (
+					<canvas ref={canvasRef} className="h-full w-full" />
+				)}
 			</div>
 			{!compact && (
 				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">

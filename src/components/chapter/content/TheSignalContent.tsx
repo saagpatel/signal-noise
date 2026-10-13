@@ -9,16 +9,16 @@ export default function TheSignalContent() {
 			<NarrativeBlock>
 				<p className="font-serif text-lg font-light leading-relaxed text-zinc-300">
 					You are a SETI analyst. Your radio telescope is pointed at a patch of
-					sky that has been quiet for six months. The waterfall display scrolls
-					endlessly &mdash; row after row of noise, rendered as a dark heatmap.
-					Somewhere in that noise, there might be a signal. Your job is to
-					decide when to sound the alarm.
+					sky that has been quiet for six months. The waterfall display is a
+					deterministic snapshot of noise and signal, rendered as a dark
+					heatmap. Somewhere in that noise, there might be a signal. Your job is
+					to decide when to sound the alarm.
 				</p>
 				<p className="mt-4 font-serif text-lg font-light leading-relaxed text-zinc-300">
-					The display on your right simulates what you see. Each row is a moment
-					in time. Each column is a frequency bin. The colors tell you what the
-					algorithm decided: green means it flagged something as real. Orange
-					means it flagged noise by mistake.
+					The display on your right represents a sample of what you might see.
+					Each row is a moment in the snapshot. Each column is a frequency bin.
+					The colors tell you what the algorithm decided: green means it flagged
+					something as real. Orange means it flagged noise by mistake.
 				</p>
 			</NarrativeBlock>
 

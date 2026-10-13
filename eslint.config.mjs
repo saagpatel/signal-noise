@@ -7,6 +7,9 @@ export default defineConfig([
 	...nextTypeScript,
 	globalIgnores([
 		".next/**",
+		".tool-cache/**",
+		"**/.tool-cache/**",
+		".pnpm-store/**",
 		"out/**",
 		"build/**",
 		"coverage/**",

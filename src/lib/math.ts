@@ -88,34 +88,3 @@ export function fromLogOdds(lo: number): number {
 export function pValueTwoTailed(z: number): number {
 	return 2 * (1 - normalCDF(Math.abs(z), 0, 1));
 }
-
-// Inline assertions for known values (run at import time in dev)
-console.assert(
-	Math.abs(ppv(0.01, 0.95, 0.95) - 0.161) < 0.001,
-	"ppv(0.01, 0.95, 0.95) should ≈ 0.161",
-);
-console.assert(
-	Math.abs(normalCDF(0, 0, 1) - 0.5) < 0.001,
-	"normalCDF(0, 0, 1) should ≈ 0.5",
-);
-console.assert(
-	Math.abs(normalCDF(1.96, 0, 1) - 0.975) < 0.001,
-	"normalCDF(1.96, 0, 1) should ≈ 0.975",
-);
-console.assert(
-	Math.abs(dPrime(1.0, 1.0) - 1.0) < 0.001,
-	"dPrime(1.0, 1.0) should = 1.0",
-);
-console.assert(
-	Math.abs(effectiveMarginOfError(3.0, 9) - 1.0) < 0.001,
-	"effectiveMarginOfError(3.0, 9) should = 1.0",
-);
-console.assert(Math.abs(toLogOdds(0.5)) < 0.001, "toLogOdds(0.5) should = 0");
-console.assert(
-	Math.abs(fromLogOdds(0) - 0.5) < 0.001,
-	"fromLogOdds(0) should = 0.5",
-);
-console.assert(
-	Math.abs(pValueTwoTailed(1.96) - 0.05) < 0.01,
-	"pValueTwoTailed(1.96) should ≈ 0.05",
-);

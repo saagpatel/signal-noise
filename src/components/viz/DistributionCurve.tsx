@@ -4,6 +4,7 @@ import { scaleLinear } from "d3-scale";
 import { area, line } from "d3-shape";
 import { useMemo, useRef } from "react";
 import { useCanvasSize } from "@/hooks/useCanvasSize";
+import { centralInterval } from "@/lib/distribution-utils";
 import { normalPDF } from "@/lib/math";
 import type { ChapterModel } from "@/types/chapter";
 
@@ -131,16 +132,30 @@ export function DistributionCurve({
 		return gen(curvePoints) ?? "";
 	}, [curvePoints, xScale, yScale]);
 
-	const winAreaPath = useMemo(() => {
-		const threshold = modeConfig.thresholdValue;
-		const winPoints = curvePoints.filter(([x]) => x >= threshold);
+	const electionWinAreaPath = useMemo(() => {
+		if (mode !== "election") return "";
+		const winPoints = curvePoints.filter(
+			([x]) => x >= modeConfig.thresholdValue,
+		);
 		if (winPoints.length === 0) return "";
 		const gen = area<[number, number]>()
 			.x((d) => xScale(d[0]))
 			.y0(yScale(0))
 			.y1((d) => yScale(d[1]));
 		return gen(winPoints) ?? "";
-	}, [curvePoints, xScale, yScale, modeConfig.thresholdValue]);
+	}, [curvePoints, xScale, yScale, mode, modeConfig.thresholdValue]);
+
+	const marketNoiseBandPath = useMemo(() => {
+		if (mode !== "market") return "";
+		const [lower, upper] = centralInterval(mean, std);
+		const bandPoints = curvePoints.filter(([x]) => x >= lower && x <= upper);
+		if (bandPoints.length === 0) return "";
+		const gen = area<[number, number]>()
+			.x((d) => xScale(d[0]))
+			.y0(yScale(0))
+			.y1((d) => yScale(d[1]));
+		return gen(bandPoints) ?? "";
+	}, [curvePoints, xScale, yScale, mode, mean, std]);
 
 	// Overlay curves (fewer polls → wider distribution)
 	const overlayCurves = useMemo(() => {
@@ -199,9 +214,12 @@ export function DistributionCurve({
 							/>
 						))}
 
-						{/* Win region shading */}
-						{winAreaPath && (
-							<path d={winAreaPath} fill="rgba(34, 197, 94, 0.2)" />
+						{/* Election win region remains separate from the market noise band. */}
+						{electionWinAreaPath && (
+							<path d={electionWinAreaPath} fill="rgba(34, 197, 94, 0.2)" />
+						)}
+						{marketNoiseBandPath && (
+							<path d={marketNoiseBandPath} fill="rgba(113, 113, 122, 0.25)" />
 						)}
 
 						{/* Main curve */}
