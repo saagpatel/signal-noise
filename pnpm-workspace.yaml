@@ -3,8 +3,13 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 overrides:
+  # Pin the transitive build tool to the maintained 0.28 line.
   esbuild: ^0.28.1
+  # Keep YAML parser security fixes consistent across dependencies.
   js-yaml: ^4.2.0
+  # Keep PostCSS within the compatible patched 8.x line.
   postcss: ^8.5.16
-  tailwindcss: ~3.4.0
+  # Ensure all consumers resolve the explicit Tailwind 3 dependency.
+  tailwindcss: 3.4.19
+  # Keep the test/build toolchain on Vite 7.
   vite: ^7.3.5
