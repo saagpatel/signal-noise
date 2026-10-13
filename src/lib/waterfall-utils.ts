@@ -1,8 +1,5 @@
 export type CellClassification =
-	| "detection"
-	| "false-alarm"
-	| "missed"
-	| "quiet";
+	"detection" | "false-alarm" | "missed" | "quiet";
 
 export const WATERFALL_BINS = 100;
 export const WATERFALL_ROWS = 50;

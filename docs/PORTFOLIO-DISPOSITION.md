@@ -62,15 +62,15 @@ static-export config — production-readiness cadence is complete.
 Static SPA sub-shape with **Playwright E2E pattern shared with
 Premise**:
 
-| Member | Sub-shape | Playwright E2E |
-|---|---|---|
-| PomGambler | PWA | n/a |
-| HowMoneyMoves | Static SPA | n/a |
-| Premise | SSR + Supabase | ✓ (`2cdfdf6`) — targets deployed Vercel URL |
-| Devil's Advocate | Next.js + SQLite | Vitest only |
-| Neural Network Playground | Static SPA + TF.js | n/a |
-| OrbitMechanic | Static SPA + physics | n/a |
-| **Signal & Noise** | **Static SPA + KaTeX + Framer** | **✓ (`75c0ea8`)** |
+| Member                    | Sub-shape                       | Playwright E2E                              |
+| ------------------------- | ------------------------------- | ------------------------------------------- |
+| PomGambler                | PWA                             | n/a                                         |
+| HowMoneyMoves             | Static SPA                      | n/a                                         |
+| Premise                   | SSR + Supabase                  | ✓ (`2cdfdf6`) — targets deployed Vercel URL |
+| Devil's Advocate          | Next.js + SQLite                | Vitest only                                 |
+| Neural Network Playground | Static SPA + TF.js              | n/a                                         |
+| OrbitMechanic             | Static SPA + physics            | n/a                                         |
+| **Signal & Noise**        | **Static SPA + KaTeX + Framer** | **✓ (`75c0ea8`)**                           |
 
 **Playwright E2E recurrence**: Premise founded the pattern;
 Signal & Noise is the second cluster member to adopt it. Worth
@@ -82,10 +82,10 @@ not just relying on `npm run build` succeeding.
 
 ## Cluster taxonomy update
 
-| Cluster | Count | Sub-shapes |
-|---|---|---|
+| Cluster               | Count | Sub-shapes                                                                                                |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------- |
 | **Static-host (web)** | **7** | PWA / static SPA (4: HowMoneyMoves + NN + OrbitMechanic + Signal & Noise) / SSR+Supabase / Next.js+SQLite |
-| (others unchanged) | | |
+| (others unchanged)    |       |                                                                                                           |
 
 Static SPA sub-shape now has **4 members across 4 distinct compute
 models**: pure presentation / client ML / physics simulation /
@@ -121,18 +121,18 @@ verification.
 
 ## Portfolio operating system instructions
 
-| Aspect | Posture |
-|---|---|
-| Portfolio status | `Release Frozen (static-host, static SPA + Playwright E2E)` |
-| Distribution channel | **Vercel** (config in place) |
-| Review cadence | Suspend overdue counting |
+| Aspect               | Posture                                                                                                                             |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Portfolio status     | `Release Frozen (static-host, static SPA + Playwright E2E)`                                                                         |
+| Distribution channel | **Vercel** (config in place)                                                                                                        |
+| Review cadence       | Suspend overdue counting                                                                                                            |
 | Resurface conditions | (a) Vercel deploy verification, (b) Playwright E2E results on production URL, (c) KaTeX or D3 dep update, (d) v1.1 (more chapters?) |
-| Co-batch with | Static-host cluster — **now 7 repos** |
-| Sub-shape | **Static SPA + interactive math + scroll narrative + Playwright E2E** |
-| Special concern | **Playwright E2E recurrence** — second cluster member after Premise. Worth recognizing as cluster maturity signal. |
-| Special concern | **KaTeX bundle size** for initial load. |
-| Special concern | **Mobile touch UX** for D3 interactive controls. |
-| Special concern | **Accessibility for D3 visualizations** (screen-reader captions). |
+| Co-batch with        | Static-host cluster — **now 7 repos**                                                                                               |
+| Sub-shape            | **Static SPA + interactive math + scroll narrative + Playwright E2E**                                                               |
+| Special concern      | **Playwright E2E recurrence** — second cluster member after Premise. Worth recognizing as cluster maturity signal.                  |
+| Special concern      | **KaTeX bundle size** for initial load.                                                                                             |
+| Special concern      | **Mobile touch UX** for D3 interactive controls.                                                                                    |
+| Special concern      | **Accessibility for D3 visualizations** (screen-reader captions).                                                                   |
 
 ---
 
@@ -149,12 +149,12 @@ verification.
 
 ## Last known reference
 
-| Field | Value |
-|---|---|
-| `origin/main` tip | `75c0ea8` feat: add Playwright E2E smoke tests |
-| Default branch | `main` |
-| Build system | TypeScript + Next.js + D3 + KaTeX + Framer Motion + Vercel static export + Playwright |
-| Chapters | **7** (medical diagnostics, radio telescope, elections, Bayesian belief, financial noise, courtroom, model convergence) |
-| Distinguishing tech | **Interactive Bayesian essay** + **KaTeX client-side math** + **Framer Motion scroll narrative** + **Playwright E2E (Premise-style canary)** |
-| Migration state | No `legacy-origin` remote |
+| Field                  | Value                                                                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `origin/main` tip      | `75c0ea8` feat: add Playwright E2E smoke tests                                                                                                 |
+| Default branch         | `main`                                                                                                                                         |
+| Build system           | TypeScript + Next.js + D3 + KaTeX + Framer Motion + Vercel static export + Playwright                                                          |
+| Chapters               | **7** (medical diagnostics, radio telescope, elections, Bayesian belief, financial noise, courtroom, model convergence)                        |
+| Distinguishing tech    | **Interactive Bayesian essay** + **KaTeX client-side math** + **Framer Motion scroll narrative** + **Playwright E2E (Premise-style canary)**   |
+| Migration state        | No `legacy-origin` remote                                                                                                                      |
 | Distinguishing feature | **Seventh static-host cluster member; fourth static-SPA sub-shape member. Second cluster member with Playwright E2E pattern** (after Premise). |

@@ -1,8 +1,5 @@
 export type DotCategory =
-	| "truePositive"
-	| "falseNegative"
-	| "falsePositive"
-	| "trueNegative";
+	"truePositive" | "falseNegative" | "falsePositive" | "trueNegative";
 
 export interface DotCounts {
 	truePositives: number;
