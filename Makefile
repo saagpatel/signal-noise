@@ -1,6 +1,10 @@
-.PHONY: dev build test typecheck lint clean install
+.PHONY: dev build test typecheck lint check clean install
 
-# pnpm project (packageManager pnpm@11.5.2).
+check:
+	@if ! command -v node >/dev/null 2>&1 || ! command -v pnpm >/dev/null 2>&1; then echo "Install Node.js from .node-version and pnpm from packageManager, then run make check."; exit 1; fi
+	pnpm check
+
+# pnpm project (packageManager pnpm@11.28.5).
 install:
 	pnpm install --frozen-lockfile
 

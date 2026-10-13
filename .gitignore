@@ -1,5 +1,7 @@
 # dependencies
 node_modules/
+.tool-cache/
+.pnpm-store/
 .pnp
 .pnp.js
 
