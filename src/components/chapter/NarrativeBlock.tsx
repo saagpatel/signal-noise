@@ -1,18 +1,23 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useIntersectionReveal } from "@/hooks/useIntersectionReveal";
 
 export function NarrativeBlock({ children }: { children: React.ReactNode }) {
 	const [ref, isVisible] = useIntersectionReveal(0.15);
+	const reducedMotion = useReducedMotion();
 
 	return (
 		<div ref={ref as React.RefObject<HTMLDivElement>}>
 			<motion.div
-				initial={{ opacity: 0, y: 24 }}
-				animate={isVisible ? { opacity: 1, y: 0 } : {}}
+				initial={false}
+				animate={
+					reducedMotion || isVisible
+						? { opacity: 1, y: 0 }
+						: { opacity: 1, y: 8 }
+				}
 				transition={{ duration: 0.6, ease: "easeOut" }}
-				className="mb-12"
+				className="mb-12 motion-safe:transition-opacity"
 			>
 				{children}
 			</motion.div>
