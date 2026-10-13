@@ -48,7 +48,7 @@ export async function generateMetadata({
 		openGraph: {
 			title: chapter.title,
 			description: chapter.hook,
-			images: [`/og/${chapter.slug}.png`],
+			images: ["/og-image.png"],
 		},
 	};
 }
