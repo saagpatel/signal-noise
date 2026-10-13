@@ -1,62 +1,55 @@
 # Signal & Noise
 
-<!-- comm-contract:start -->
+## Purpose
 
-## Communication Contract
+A static, privacy-preserving interactive essay that teaches Bayesian reasoning through seven chapters of prose, direct-manipulation visualizations, client-rendered KaTeX equations, and motion pacing.
 
-- Inherit global Codex communication and reporting rules from `~/.codex/AGENTS.override.md` and `~/.codex/policies/communication/BigPictureReportingV1.md`.
-- Repo-specific instructions below add project constraints only; do not restate global voice or status-reporting rules here.
-<!-- comm-contract:end -->
+## Layout
 
-## Communication Contract
+- `src/chapters/` contains the seven chapter models and tests.
+- `src/components/chapter/` contains narrative, controls, and equation UI.
+- `src/components/viz/` contains chapter visualizations.
+- `src/lib/` contains pure math and visualization helpers.
+- `public/` contains static assets, including the shared Open Graph image.
+- `.github/workflows/ci.yml` runs the repository check target.
 
-- Follow `~/.codex/policies/communication/BigPictureReportingV1.md` for user-facing updates.
-- Keep ordinary in-flight updates conversational, warm, PM-readable, operator-grade, and low-noise.
-- Keep technical details in internal artifacts unless explicitly requested by the user or required by failure, risk, or verification.
+## Setup
 
-## Project Goal
+- Use the Node version in `.node-version` and the pnpm version in `package.json`.
+- Install with `pnpm install --frozen-lockfile`.
+- Run `pnpm dev` for local development and `pnpm start` to serve the static `out/` export after building.
 
-Signal & Noise is a static interactive essay teaching Bayesian reasoning through direct-manipulation visualizations, KaTeX equations, and Framer Motion pacing. Keep it static, privacy-preserving, and mathematically clear.
+## Checks
 
-## First Read
+- `pnpm lint`
+- `pnpm format:check`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- `make check` runs all required checks in sequence.
+- Playwright smoke specs are separate from `make check` and the default config targets the deployed site.
 
-- `README.md` for product scope and local commands.
-- `CLAUDE.md` for portfolio context, phase constraints, and project rules.
-- `IMPLEMENTATION-ROADMAP.md` before changing scope or version claims.
-- `src/types/chapter.ts`, `src/lib/math.ts`, `src/chapters/`, `src/components/viz/`, and `src/hooks/useChapterModel.ts` before changing chapter logic or visualizations.
+## Boundaries
 
-## Core Rules
+- Keep the site fully static; do not add server functions, standalone output, browser persistence, or additional telemetry.
+- `@vercel/analytics` is enabled and privacy-preserving; do not add tracking without an explicit request.
+- Use D3 for math, scales, and path generation only. React owns the DOM.
+- Render KaTeX only in the client-side dynamically imported equation overlay.
+- Changing the chapter interfaces requires updating all seven chapter configs and their tests.
+- Preserve the existing static export behavior and keep math explanations aligned with the implemented models.
 
-- Keep the site fully static; do not add server functions or standalone output.
-- `@vercel/analytics` is already enabled (no PII); do not add further tracking, telemetry, Sentry, or persistence unless explicitly requested.
-- Use D3 for math/scales only; React owns DOM rendering.
-- Do not render KaTeX server-side.
-- Do not change chapter interfaces without updating all seven chapter configs.
+## Delivery
 
-## Codex App Usage
+- Keep changes scoped to the requested task and preserve unrelated work.
+- Run the relevant checks and report their actual results.
+- Do not publish, deploy, tag, or change release history unless the task explicitly authorizes it.
 
-- Use Codex App Projects for repo-local implementation, review, and verification.
-- Use a Worktree for chapter-interface changes, math-model changes, visualization refactors, dependency upgrades, or static export behavior.
-- Use browser or Playwright evidence for chapter navigation, sliders, visualizations, equations, scroll behavior, and responsive layout.
-- Use artifacts for teaching notes, QA summaries, release packets, and handoff summaries.
-- Keep connectors read-first and task-scoped. Do not use external data unless explicitly requested.
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Verification
+# This is NOT the Next.js you know
 
-- Canonical verifier (matches `.github/workflows/ci.yml`; there is no `.codex/verify.commands` in this repo):
-  - `pnpm install --frozen-lockfile`
-  - `pnpm test`
-  - `pnpm run typecheck`
-  - `pnpm run build`
-- Additional local gate: `pnpm lint` (or `make lint`) runs ESLint with `eslint.config.mjs`; generated output is ignored.
-- Current caveat: `pnpm test` runs unit tests only; Playwright smoke specs live under `e2e/`; use the local config and conditional browser checks in [README.md](README.md#source-checks-and-local-preview) when browser behavior changes. The default config targets the deployed site.
-- Current caveat: `next build` passes but emits existing `metadataBase` warnings for social image URL resolution.
-- Add browser or Playwright checks for interactive essay behavior changes.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-## Done Criteria
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-- The requested change is implemented.
-- Relevant checks were run, or the exact reason they were not run is stated.
-- Math/content changes include sample-value or visual verification.
-- UI/visualization changes include browser or Playwright evidence.
-- Assumptions, risks, and next steps are summarized before closeout.
+<!-- END:nextjs-agent-rules -->
