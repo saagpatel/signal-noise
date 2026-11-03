@@ -11,5 +11,5 @@ overrides:
   postcss: ^8.5.16
   # Ensure all consumers resolve the explicit Tailwind 3 dependency.
   tailwindcss: 3.4.19
-  # Keep the test/build toolchain on Vite 7.
-  vite: ^7.3.5
+  # Keep the test/build toolchain on Vite 8.
+  vite: ^8.3.5
