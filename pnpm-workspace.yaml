@@ -3,6 +3,10 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 overrides:
+  # GHSA-vc2v-76pw-4v95: serve still pins the vulnerable compression release.
+  serve>compression: 1.8.2
+  # GHSA-g3hv-75wg-m249: patch the modern API without breaking 3.x consumers.
+  minimatch@>=10 <11: 11.0.1
   # Pin the transitive build tool to the maintained 0.28 line.
   esbuild: ^0.28.1
   # Keep YAML parser security fixes consistent across dependencies.
