@@ -31,6 +31,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "1.64.1",
+		"@tailwindcss/postcss": "^4.3.4",
 		"@types/d3-hierarchy": "^3.1.7",
 		"@types/d3-interpolate": "^3.0.4",
 		"@types/d3-scale": "^4.0.9",
@@ -39,13 +40,12 @@
 		"@types/node": "^24.0.0",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
-		"autoprefixer": "^10.6.2",
 		"eslint": "^9.39.5",
 		"eslint-config-next": "^16.4.3",
 		"postcss": "^8.5.32",
 		"prettier": "^3.9.10",
 		"serve": "^14.2.4",
-		"tailwindcss": "4.3.3",
+		"tailwindcss": "4.3.4",
 		"typescript": "^6.0.3",
 		"vite": "^8.3.5",
 		"vitest": "^5.0.5"

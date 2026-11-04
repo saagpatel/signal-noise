@@ -120,7 +120,7 @@ export function WaterfallDisplay({
 		<div className={className}>
 			<div
 				ref={containerRef}
-				className="aspect-[2/1] w-full overflow-hidden rounded-lg bg-zinc-900"
+				className="aspect-2/1 w-full overflow-hidden rounded-lg bg-zinc-900"
 				aria-label={
 					canvasUnavailable ? undefined : "Waterfall display visualization"
 				}

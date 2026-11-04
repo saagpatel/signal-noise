@@ -25,7 +25,7 @@ export function Toggle({ checked, onChange, label }: ToggleProps) {
 			aria-checked={checked}
 			onClick={() => onChange(!checked)}
 			onKeyDown={handleKeyDown}
-			className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-muted transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+			className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-muted transition-colors hover:text-white focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-accent"
 		>
 			<span
 				className={`inline-block h-3 w-3 rounded-full border transition-colors ${
