@@ -180,7 +180,7 @@ export function DistributionCurve({
 			<div className={className}>
 				<div
 					ref={containerRef}
-					className="aspect-[3/2] w-full rounded-lg bg-zinc-900"
+					className="aspect-3/2 w-full rounded-lg bg-zinc-900"
 				/>
 			</div>
 		);
@@ -193,7 +193,7 @@ export function DistributionCurve({
 
 	return (
 		<div className={className}>
-			<div ref={containerRef} className="aspect-[3/2] w-full">
+			<div ref={containerRef} className="aspect-3/2 w-full">
 				<svg
 					width={width}
 					height={height}
