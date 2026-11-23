@@ -1,6 +1,6 @@
 # Signal & Noise
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript)](#) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript)](tsconfig.json) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
 > Drag a slider. Update your prior. Watch Bayes' theorem stop being abstract.
 
@@ -9,18 +9,18 @@ Signal & Noise is an interactive essay teaching Bayesian reasoning and probabili
 ## Features
 
 - **Seven chapters** — medical diagnostics, radio telescope detection, election modeling, Bayesian belief revision, financial noise, courtroom reasoning, and model convergence
-- **Direct manipulation** — every visualization is a live control; drag priors, adjust thresholds, watch posterior distributions update in real time
-- **KaTeX equations** — inline math renders client-side without a build step
+- **Direct manipulation** — drag a slider to change a prior or a detection threshold and watch the chapter visualization update
+- **KaTeX equations** — select “Show Equation” to see the chapter’s formula, rendered in the browser
 - **Scroll animations** — Framer Motion reveal animations guide pacing through the narrative
-- **Static export** — fully pre-renderable; no server required after `pnpm run build`
+- **Static export** — serve the files produced by `pnpm run build` from any static host
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js 22.13.0 or newer within 22.x (the CI line), or Node.js 24+
-  (pnpm 11.5.2 and the locked ESLint toolchain require the 22.13 floor)
-- pnpm 11.5.2, matching `packageManager` in `package.json`
+- Node.js 24.21.0 (the CI version in `.node-version`) or a later 24.x release
+- pnpm 11.28.5, matching `packageManager` in `package.json`
+- Make for `make check`, and network access for the build to fetch Google Fonts
 
 ### Source checks and local preview
 
@@ -35,10 +35,11 @@ These match [CI](.github/workflows/ci.yml). `make check` runs lint, formatting,
 typecheck, Vitest unit tests, and the static build. For a focused mathematical
 change, use for example `pnpm exec vitest run src/lib/math.test.ts`.
 
-Start the local development preview with `pnpm run dev --hostname 127.0.0.1`,
-then open `http://127.0.0.1:3000`. Production builds export static files into
-`out/`; after building, run `pnpm start` to preview those files with the bundled
-static server.
+After `make check`, run `pnpm start` to preview the exported files in `out/`
+with the bundled static server. Open the local URL it prints.
+For live updates while editing, stop the static server and run
+`pnpm run dev --hostname 127.0.0.1`, then open `http://127.0.0.1:3000`.
+The development server needs access to filesystem watch events.
 
 For changes to chapter navigation, sliders, equations, visualization or responsive
 layout, inspect the affected flow in a local browser at desktop and narrow widths.
@@ -54,26 +55,28 @@ That config starts a loopback-only dev server and uses the local URL; keep port
 `pnpm exec playwright test --config playwright.local.config.ts --list`.
 The default `playwright.config.ts` targets the deployed Vercel site, so a bare
 Playwright invocation is a **deployed-site** check requiring that separate scope.
-These smoke specs cover landing/chapter/navigation only; sliders, equations and
-responsive layout still need relevant browser checks. Local source checks are
-separate from deployed behavior and human comprehension.
+The smoke specs load the landing page and two chapter URLs. The canvas specs
+check that the dot grid and waterfall redraw after keyboard slider changes.
+Equation toggles, navigation links and responsive layout still need browser
+checks. Local source checks are separate from deployed behavior and human
+comprehension.
 
 ## Tech Stack
 
-| Layer         | Technology                          |
-| ------------- | ----------------------------------- |
-| Framework     | Next.js 16 (static export)          |
-| Language      | TypeScript 6, strict mode           |
-| Visualization | D3 v7 (math/scales; React owns DOM) |
-| Math          | KaTeX 0.18                          |
-| Animation     | Framer Motion 13                    |
-| Styling       | Tailwind CSS 3                      |
+| Layer         | Technology                                            |
+| ------------- | ----------------------------------------------------- |
+| Framework     | Next.js 16 (static export)                            |
+| Language      | TypeScript 6, strict mode                             |
+| Visualization | D3 modules (scales, shapes, hierarchy, interpolation) |
+| Math          | KaTeX 0.19                                            |
+| Animation     | Framer Motion 13                                      |
+| Styling       | Tailwind CSS 4.3                                      |
 
 ## Status
 
 ### Stack
 
-The project exports a static Next.js site using Node.js 24, pnpm 11, React, TypeScript, Tailwind CSS 3.4, and client-rendered KaTeX. The seven chapters use local hypothetical inputs and deterministic visualizations.
+The project exports a static Next.js site using Node.js 24, pnpm 11, React, TypeScript, Tailwind CSS 4.3, and client-rendered KaTeX. The seven chapters use local hypothetical inputs and deterministic visualizations.
 
 ### Known risks
 
